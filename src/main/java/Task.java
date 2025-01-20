@@ -7,6 +7,11 @@ public class Task {
         this.isDone = isDone;
     }
 
+    public Task(String description) {
+        this.description = description;
+        this.isDone = false;
+    }
+
     public String getDescription() {
         return this.description;
     }
