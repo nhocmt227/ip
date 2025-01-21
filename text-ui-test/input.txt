@@ -1,0 +1,13 @@
+read books
+buy foods
+collect money
+list
+todo borrow books
+deadline return book /by Sunday
+mark 4
+mark 5
+unmark 2
+unmark 4
+event project meeting /from Mon 2pm /to 4pm
+list
+bye
