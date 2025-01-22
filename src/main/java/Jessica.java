@@ -7,6 +7,9 @@ public class Jessica {
 
     // An arraylist of Task to store the Tasks information
     private static List<Task> list = new ArrayList<>();
+    public static enum Tag {
+        LIST, MARK, UNMARK, TODO, DEADLINE, EVENT, DELETE, BYE
+    }
 
     // Methods to decorate input
     public static String decorateInput(String input) {
@@ -43,33 +46,6 @@ public class Jessica {
     public static boolean detectBye(String input) {
         return input.trim().equals("bye");
     }
-    public static boolean detectList(String input) {
-        return input.trim().equals("list");
-    }
-    public static boolean detectMark(String input) {
-        String[] tags = parse(input);
-        return tags[0].equals("mark");
-    }
-    public static boolean detectUnmark(String input) {
-        String[] tags = parse(input);
-        return tags[0].equals("unmark");
-    }
-    public static boolean detectToDo(String input) {
-        String[] tags = parse(input);
-        return tags[0].equals("todo");
-    }
-    public static boolean detectDeadline(String input) {
-        String[] tags = parse(input);
-        return tags[0].equals("deadline");
-    }
-    public static boolean detectEvent(String input) {
-        String[] tags = parse(input);
-        return tags[0].equals("event");
-    }
-    public static boolean detectDelete(String input) {
-        String[] tags = parse(input);
-        return tags[0].equals("delete");
-    }
 
     // Method to get input patterns
     public static int getMarkIndex(String input) throws JessicaException {
@@ -89,7 +65,7 @@ public class Jessica {
     }
     public static int getUnmarkIndex(String input) throws JessicaException {
         try {
-            String[] parts = input.split("mark\\s+", 2);
+            String[] parts = input.split("unmark\\s+", 2);
             if (parts.length == 1) {
                 throw new JessicaException("Unmark index must not be empty, try again");
             }
@@ -195,6 +171,14 @@ public class Jessica {
     }
 
     // Methods to handle logics
+    public static void handleList(String input) {
+        if (input.trim().equals("list")) {
+            prettyPrintList(list);
+        } else {
+            System.out.println("Invalid list syntax, try again");
+            System.out.println("Usage: list");
+        }
+    }
     public static void handleMark(String input) {
         try {
             int index = getMarkIndex(input);
@@ -302,6 +286,11 @@ public class Jessica {
         String[] parts = input.split("\\s+");
         return parts;
     }
+    public static Tag getFirstTag(String input) {
+        input = input.trim();
+        String tagStr = input.split("\\s+", 2)[0];
+        return Tag.valueOf(tagStr.toUpperCase());
+    }
     public static void chatbotHello() {
         printPrettyName();
         System.out.println(decorateInput("Hello! I'm Jessica\n" +
@@ -311,12 +300,11 @@ public class Jessica {
         prettyPrint("Bye. Hope to see you again soon!");
     }
     public static void printPrettyName() {
-        String s = "      _               _           \n" +
-                "     | | ___  ___ ___(_) ___ __ _ \n" +
+        String s = "      _               _\n" +
+                "     | | ___  ___ ___(_) ___ __ _\n" +
                 "  _  | |/ _ \\/ __/ __| |/ __/ _` |\n" +
                 " | |_| |  __/\\__ \\__ \\ | (_| (_| |\n" +
-                "  \\___/ \\___||___/___/_|\\___\\__,_|\n" +
-                "                                  ";
+                "  \\___/ \\___||___/___/_|\\___\\__,_|\n";
         System.out.println(s);
     }
 
@@ -331,26 +319,42 @@ public class Jessica {
             }
             if (input.trim().isEmpty()) {
                 System.out.println("Cannot add an empty task, try again");
-            } else if (detectList(input)) {
-                prettyPrintList(list);
-            } else if (detectMark(input)) {
-                handleMark(input);
-            } else if (detectUnmark(input)) {
-                handleUnmark(input);
-            } else if (detectToDo(input)) {
-                handleToDo(input);
-            } else if (detectDeadline(input)) {
-                handleDeadline(input);
-            } else if (detectEvent(input)) {
-                handleEvent(input);
-            } else if (detectDelete(input)) {
-                handleDelete(input);
-            } else {
+                continue;
+            }
+            try {
+                Tag tag = getFirstTag(input);
+                switch (tag) {
+                    case LIST:
+                        handleList(input);
+                        break;
+                    case MARK:
+                        handleMark(input);
+                        break;
+                    case UNMARK:
+                        handleUnmark(input);
+                        break;
+                    case TODO:
+                        handleToDo(input);
+                        break;
+                    case DEADLINE:
+                        handleDeadline(input);
+                        break;
+                    case EVENT:
+                        handleEvent(input);
+                        break;
+                    case DELETE:
+                        handleDelete(input);
+                        break;
+                    default:
+                        System.out.println("Unknown command, try again");
+                        break;
+                }
+            } catch (IllegalArgumentException e) {
                 list.add(new Task(input));
                 prettyPrint("added: " + input);
+                continue;
             }
         }
         chatbotGoodbye();
-        printPrettyName();
     }
 }
