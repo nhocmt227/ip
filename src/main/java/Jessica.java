@@ -303,11 +303,21 @@ public class Jessica {
         return parts;
     }
     public static void chatbotHello() {
+        printPrettyName();
         System.out.println(decorateInput("Hello! I'm Jessica\n" +
                 "     What can I do for you?"));
     }
     public static void chatbotGoodbye() {
         prettyPrint("Bye. Hope to see you again soon!");
+    }
+    public static void printPrettyName() {
+        String s = "      _               _           \n" +
+                "     | | ___  ___ ___(_) ___ __ _ \n" +
+                "  _  | |/ _ \\/ __/ __| |/ __/ _` |\n" +
+                " | |_| |  __/\\__ \\__ \\ | (_| (_| |\n" +
+                "  \\___/ \\___||___/___/_|\\___\\__,_|\n" +
+                "                                  ";
+        System.out.println(s);
     }
 
     public static void main(String[] args) {
@@ -341,5 +351,6 @@ public class Jessica {
             }
         }
         chatbotGoodbye();
+        printPrettyName();
     }
 }
