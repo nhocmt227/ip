@@ -21,4 +21,9 @@ deadline return book/by Sunday
 deadline /by /by /by
 deadline  /by
 deadline  /by Sunday
+list
+delete 2
+ delete   delete 3
+delete   1
+list
 bye

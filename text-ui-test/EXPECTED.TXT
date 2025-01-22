@@ -79,6 +79,34 @@ Usage: deadline [description] /by [end date]
 Wrong deadline format, try again
 Usage: deadline [description] /by [end date]
     ____________________________________________________________
+     1. [ ] read books
+     2. [T][ ] borrow books
+     3. [D][ ] return book (by: Sunday)
+     4. [E][ ] project meeting (from: Mon 2pm to: 4pm)
+     5. [D][ ] /by (by: /by)
+    ____________________________________________________________
+
+    ____________________________________________________________
+     Noted. I've removed this task:
+       [T][ ] borrow books
+     Now you have 4 tasks in the list.
+    ____________________________________________________________
+
+Delete index must be a number, try again
+Usage: delete [index]
+    ____________________________________________________________
+     Noted. I've removed this task:
+       [ ] read books
+     Now you have 3 tasks in the list.
+    ____________________________________________________________
+
+    ____________________________________________________________
+     1. [D][ ] return book (by: Sunday)
+     2. [E][ ] project meeting (from: Mon 2pm to: 4pm)
+     3. [D][ ] /by (by: /by)
+    ____________________________________________________________
+
+    ____________________________________________________________
      Bye. Hope to see you again soon!
     ____________________________________________________________
 

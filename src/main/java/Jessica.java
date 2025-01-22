@@ -66,6 +66,10 @@ public class Jessica {
         String[] tags = parse(input);
         return tags[0].equals("event");
     }
+    public static boolean detectDelete(String input) {
+        String[] tags = parse(input);
+        return tags[0].equals("delete");
+    }
 
     // Method to get input patterns
     public static int getMarkIndex(String input) throws JessicaException {
@@ -96,6 +100,21 @@ public class Jessica {
             return index;
         } catch (NumberFormatException e) {
             throw new JessicaException("Unmark index must be a number, try again");
+        }
+    }
+    public static int getDeleteIndex(String input) throws JessicaException {
+        try {
+            String[] parts = input.split("delete\\s+", 2);
+            if (parts.length == 1) {
+                throw new JessicaException("Delete index must not be empty, try again");
+            }
+            int index = Integer.parseInt(parts[1].trim(), 10);
+            if (index <= 0) {
+                throw new JessicaException("Delete index must be a positive number, try again");
+            }
+            return index;
+        } catch (NumberFormatException e) {
+            throw new JessicaException("Delete index must be a number, try again");
         }
     }
     public static String getToDoDescription(String input) throws JessicaException {
@@ -241,7 +260,26 @@ public class Jessica {
             System.out.println(e.getMessage());
             System.out.println("Usage: event [description] /from [begin time] /to [end time]");
         }
-
+    }
+    public static void handleDelete(String input) {
+        try {
+            int index = getDeleteIndex(input);
+            Task task = list.get(index - 1);
+            list.remove(index - 1);
+            String output = "Noted. I've removed this task:\n       "
+                    + task.toString()
+                    + "\n     "
+                    + "Now you have "
+                    + printSize()
+                    + " in the list.";
+            prettyPrint(output);
+        } catch (JessicaException e) {
+            System.out.println(e.getMessage());
+            System.out.println("Usage: delete [index]");
+        } catch (IndexOutOfBoundsException e) {
+            System.out.println("Index out of bound, try again");
+            System.out.println("Usage: delete [index]");
+        }
     }
 
     // Other helper methods
@@ -295,6 +333,8 @@ public class Jessica {
                 handleDeadline(input);
             } else if (detectEvent(input)) {
                 handleEvent(input);
+            } else if (detectDelete(input)) {
+                handleDelete(input);
             } else {
                 list.add(new Task(input));
                 prettyPrint("added: " + input);
