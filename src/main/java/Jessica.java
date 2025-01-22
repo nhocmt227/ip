@@ -76,11 +76,11 @@ public class Jessica {
             }
             int index = Integer.parseInt(parts[1].trim(), 10);
             if (index <= 0) {
-                throw new JessicaException("Index must be a positive number, try again");
+                throw new JessicaException("Mark index must be a positive number, try again");
             }
             return index;
         } catch (NumberFormatException e) {
-            throw new JessicaException("Invalid syntax, try again");
+            throw new JessicaException("Mark index must be a number, try again");
         }
     }
     public static int getUnmarkIndex(String input) throws JessicaException {
@@ -91,11 +91,11 @@ public class Jessica {
             }
             int index = Integer.parseInt(parts[1].trim(), 10);
             if (index <= 0) {
-                throw new JessicaException("Index must be a positive number, try again");
+                throw new JessicaException("Unmark index must be a positive number, try again");
             }
             return index;
         } catch (NumberFormatException e) {
-            throw new JessicaException("Invalid syntax, try again");
+            throw new JessicaException("Unmark index must be a number, try again");
         }
     }
     public static String getToDoDescription(String input) throws JessicaException {
@@ -113,73 +113,64 @@ public class Jessica {
     public static String getDeadlineDescription(String input) throws JessicaException {
         String[] parts = input.split("deadline\\s+", 2);
         if (parts.length == 1) {
-            throw new JessicaException("Deadline description cannot be empty");
+            throw new JessicaException("Wrong deadline format, try again");
         }
-        String body = parts[1];
-        String[] bodyParts = body.split("\\s+/by\\s+", 2);
+        String[] bodyParts = parts[1].split("\\s+/by\\s+", 2);
         if (bodyParts[0].trim().isEmpty()) {
-            throw new JessicaException("Deadline description cannot be empty");
-        } else {
-            return bodyParts[0];
+            throw new JessicaException("Wrong deadline format, try again");
         }
+        return bodyParts[0].trim();
+
     }
     public static String getDeadlineDate(String input) throws JessicaException {
         String[] parts = input.split("deadline\\s+", 2);
         if (parts.length == 1) {
-            throw new JessicaException("Deadline description cannot be empty");
+            throw new JessicaException("Wrong deadline format, try again");
         }
-        String body = parts[1];
-        String[] bodyParts = body.split("\\s+/by\\s+", 2);
+        String[] bodyParts = parts[1].split("\\s+/by\\s+", 2);
         if (bodyParts.length == 1 || bodyParts[1].trim().isEmpty()) {
-            throw new JessicaException("Deadline end date cannot be empty");
-        } else {
-            return bodyParts[1];
+            throw new JessicaException("Wrong deadline format, try again");
         }
+        return bodyParts[1];
     }
     public static String getEventDescription(String input) throws JessicaException {
         String[] parts = input.split("event\\s+", 2);
         if (parts.length == 1) {
-            throw new JessicaException("Event description cannot be empty");
+            throw new JessicaException("Wrong event format, try again");
         }
-        String body = parts[1];
-        String[] bodyParts = body.split("\\s+/from\\s+", 2);
+        String[] bodyParts = parts[1].split("\\s+/from\\s+", 2);
         if (bodyParts[0].trim().isEmpty()) {
-            throw new JessicaException("Event description cannot be empty");
-        } else {
-            return bodyParts[0];
+            throw new JessicaException("Wrong event format, try again");
         }
+        return bodyParts[0].trim();
     }
     public static String getEventBeginDate(String input) throws JessicaException {
         String[] parts = input.split("event\\s+", 2);
         if (parts.length == 1) {
-            throw new JessicaException("Event description cannot be empty");
+            throw new JessicaException("Wrong event format, try again");
         }
-        String body = parts[1];
-        String[] bodyParts = body.split("\\s+/from\\s+", 2);
+        String[] bodyParts = parts[1].split("\\s+/from\\s+", 2);
         if (bodyParts.length == 1 || bodyParts[1].trim().isEmpty()) {
-            throw new JessicaException("Event begin time cannot be empty");
+            throw new JessicaException("Wrong event format, try again");
         }
-        body = bodyParts[1];
-        bodyParts = body.split("\\s+/to\\s+", 2);
+        bodyParts = bodyParts[1].split("\\s+/to\\s+", 2);
         if (bodyParts[0].trim().isEmpty()) {
-            throw new JessicaException("Event begin time cannot be empty");
+            throw new JessicaException("Wrong event format, try again");
         }
         return bodyParts[0];
     }
     public static String getEventEndDate(String input) throws JessicaException {
         String[] parts = input.split("event\\s+", 2);
         if (parts.length == 1) {
-            throw new JessicaException("Event description cannot be empty");
+            throw new JessicaException("Wrong event format, try again");
         }
-        String body = parts[1];
-        String[] bodyParts = body.split("\\s+/from\\s+", 2);
+        String[] bodyParts = parts[1].split("\\s+/from\\s+", 2);
         if (bodyParts.length == 1 || bodyParts[1].trim().isEmpty()) {
-            throw new JessicaException("Event begin time cannot be empty");
+            throw new JessicaException("Wrong event format, try again");
         }
-        body = bodyParts[1];
-        bodyParts = body.split("\\s+/to\\s+", 2);
+        bodyParts = bodyParts[1].split("\\s+/to\\s+", 2);
         if (bodyParts.length == 1 || bodyParts[1].trim().isEmpty()) {
-            throw new JessicaException("Event end time cannot be empty");
+            throw new JessicaException("Wrong event format, try again");
         }
         return bodyParts[1];
     }

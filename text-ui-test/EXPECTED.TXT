@@ -8,66 +8,76 @@
     ____________________________________________________________
 
     ____________________________________________________________
-     added: buy foods
-    ____________________________________________________________
-
-    ____________________________________________________________
-     added: collect money
-    ____________________________________________________________
-
-    ____________________________________________________________
      1. [ ] read books
-     2. [ ] buy foods
-     3. [ ] collect money
     ____________________________________________________________
 
     ____________________________________________________________
      Got it. I've added this task:
        [T][ ] borrow books
-     Now you have 4 tasks in the list.
+     Now you have 2 tasks in the list.
     ____________________________________________________________
 
     ____________________________________________________________
      Got it. I've added this task:
        [D][ ] return book (by: Sunday)
-     Now you have 5 tasks in the list.
+     Now you have 3 tasks in the list.
     ____________________________________________________________
 
-    ____________________________________________________________
-     Nice! I've marked this task as done:
-       [T][X] borrow books
-    ____________________________________________________________
-
-    ____________________________________________________________
-     Nice! I've marked this task as done:
-       [D][X] return book (by: Sunday)
-    ____________________________________________________________
-
-    ____________________________________________________________
-     OK, I've marked this task as not done yet:
-       [ ] buy foods
-    ____________________________________________________________
-
-    ____________________________________________________________
-     OK, I've marked this task as not done yet:
-       [T][ ] borrow books
-    ____________________________________________________________
-
+Index out of bound, try again
+Usage: mark [index]
+Index out of bound, try again
+Usage: unmark [index]
     ____________________________________________________________
      Got it. I've added this task:
        [E][ ] project meeting (from: Mon 2pm to: 4pm)
-     Now you have 6 tasks in the list.
+     Now you have 4 tasks in the list.
     ____________________________________________________________
 
     ____________________________________________________________
      1. [ ] read books
-     2. [ ] buy foods
-     3. [ ] collect money
-     4. [T][ ] borrow books
-     5. [D][X] return book (by: Sunday)
-     6. [E][ ] project meeting (from: Mon 2pm to: 4pm)
+     2. [T][ ] borrow books
+     3. [D][ ] return book (by: Sunday)
+     4. [E][ ] project meeting (from: Mon 2pm to: 4pm)
     ____________________________________________________________
 
+Cannot add an empty task, try again
+Mark index must not be empty, try again
+Usage: mark [index]
+Mark index must be a number, try again
+Usage: mark [index]
+Unmark index must not be empty, try again
+Usage: unmark [index]
+    ____________________________________________________________
+     1. [ ] read books
+     2. [T][ ] borrow books
+     3. [D][ ] return book (by: Sunday)
+     4. [E][ ] project meeting (from: Mon 2pm to: 4pm)
+    ____________________________________________________________
+
+Wrong event format, try again
+Usage: event [description] /from [begin time] /to [end time]
+Wrong event format, try again
+Usage: event [description] /from [begin time] /to [end time]
+Wrong event format, try again
+Usage: event [description] /from [begin time] /to [end time]
+Todo description cannot be empty
+Usage: todo [description]
+Wrong deadline format, try again
+Usage: deadline [description] /by [end date]
+Wrong deadline format, try again
+Usage: deadline [description] /by [end date]
+Wrong deadline format, try again
+Usage: deadline [description] /by [end date]
+    ____________________________________________________________
+     Got it. I've added this task:
+       [D][ ] /by (by: /by)
+     Now you have 5 tasks in the list.
+    ____________________________________________________________
+
+Wrong deadline format, try again
+Usage: deadline [description] /by [end date]
+Wrong deadline format, try again
+Usage: deadline [description] /by [end date]
     ____________________________________________________________
      Bye. Hope to see you again soon!
     ____________________________________________________________
