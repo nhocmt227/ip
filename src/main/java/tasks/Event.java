@@ -1,3 +1,5 @@
+package tasks;
+
 public class Event extends Task {
     private String begin;
     private String end;
