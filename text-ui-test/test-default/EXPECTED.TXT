@@ -9,24 +9,17 @@
      What can I do for you?
     ____________________________________________________________
 
-    ____________________________________________________________
-     added: read books
-    ____________________________________________________________
-
-    ____________________________________________________________
-     1. [ ] read books
-    ____________________________________________________________
-
+Please specify the type of task
     ____________________________________________________________
      Got it. I've added this task:
        [T][ ] borrow books
-     Now you have 2 tasks in the list.
+     Now you have 1 task in the list.
     ____________________________________________________________
 
     ____________________________________________________________
      Got it. I've added this task:
        [D][ ] return book (by: Sunday)
-     Now you have 3 tasks in the list.
+     Now you have 2 tasks in the list.
     ____________________________________________________________
 
 Index out of bound, try again
@@ -36,14 +29,13 @@ Usage: unmark [index]
     ____________________________________________________________
      Got it. I've added this task:
        [E][ ] project meeting (from: Mon 2pm to: 4pm)
-     Now you have 4 tasks in the list.
+     Now you have 3 tasks in the list.
     ____________________________________________________________
 
     ____________________________________________________________
-     1. [ ] read books
-     2. [T][ ] borrow books
-     3. [D][ ] return book (by: Sunday)
-     4. [E][ ] project meeting (from: Mon 2pm to: 4pm)
+     1. [T][ ] borrow books
+     2. [D][ ] return book (by: Sunday)
+     3. [E][ ] project meeting (from: Mon 2pm to: 4pm)
     ____________________________________________________________
 
 Cannot add an empty task, try again
@@ -54,10 +46,9 @@ Usage: mark [index]
 Unmark index must not be empty, try again
 Usage: unmark [index]
     ____________________________________________________________
-     1. [ ] read books
-     2. [T][ ] borrow books
-     3. [D][ ] return book (by: Sunday)
-     4. [E][ ] project meeting (from: Mon 2pm to: 4pm)
+     1. [T][ ] borrow books
+     2. [D][ ] return book (by: Sunday)
+     3. [E][ ] project meeting (from: Mon 2pm to: 4pm)
     ____________________________________________________________
 
 Wrong event format, try again
@@ -77,7 +68,7 @@ Usage: deadline [description] /by [end date]
     ____________________________________________________________
      Got it. I've added this task:
        [D][ ] /by (by: /by)
-     Now you have 5 tasks in the list.
+     Now you have 4 tasks in the list.
     ____________________________________________________________
 
 Wrong deadline format, try again
@@ -85,31 +76,29 @@ Usage: deadline [description] /by [end date]
 Wrong deadline format, try again
 Usage: deadline [description] /by [end date]
     ____________________________________________________________
-     1. [ ] read books
-     2. [T][ ] borrow books
-     3. [D][ ] return book (by: Sunday)
-     4. [E][ ] project meeting (from: Mon 2pm to: 4pm)
-     5. [D][ ] /by (by: /by)
+     1. [T][ ] borrow books
+     2. [D][ ] return book (by: Sunday)
+     3. [E][ ] project meeting (from: Mon 2pm to: 4pm)
+     4. [D][ ] /by (by: /by)
     ____________________________________________________________
 
     ____________________________________________________________
      Noted. I've removed this task:
-       [T][ ] borrow books
-     Now you have 4 tasks in the list.
+       [D][ ] return book (by: Sunday)
+     Now you have 3 tasks in the list.
     ____________________________________________________________
 
 Delete index must be a number, try again
 Usage: delete [index]
     ____________________________________________________________
      Noted. I've removed this task:
-       [ ] read books
-     Now you have 3 tasks in the list.
+       [T][ ] borrow books
+     Now you have 2 tasks in the list.
     ____________________________________________________________
 
     ____________________________________________________________
-     1. [D][ ] return book (by: Sunday)
-     2. [E][ ] project meeting (from: Mon 2pm to: 4pm)
-     3. [D][ ] /by (by: /by)
+     1. [E][ ] project meeting (from: Mon 2pm to: 4pm)
+     2. [D][ ] /by (by: /by)
     ____________________________________________________________
 
     ____________________________________________________________

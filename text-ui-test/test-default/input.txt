@@ -1,5 +1,4 @@
 read books
-list
 todo borrow books
 deadline return book /by Sunday
 mark 4
