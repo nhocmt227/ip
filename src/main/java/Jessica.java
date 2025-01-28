@@ -18,7 +18,7 @@ public class Jessica {
     private static List<Task> list = new ArrayList<>();
 
     public enum Tag {
-        LIST, MARK, UNMARK, TODO, DEADLINE, EVENT, DELETE, BYE
+        LIST, MARK, UNMARK, TODO, DEADLINE, EVENT, DELETE
     }
 
 
@@ -36,9 +36,14 @@ public class Jessica {
             System.out.println("Unknown error: " + e.getMessage());
         }
 
+        StorageHandler storageHandler = new StorageHandler(storagePath);
+        Scanner scanner = new Scanner(System.in);
+        LogicHandler logicHandler = new LogicHandler(storageHandler);
+
+
         // Load data from hard disk to list
         try {
-            StorageHandler.loadDiskToMem(storagePath, list);
+            storageHandler.loadDiskToMem(list);
         } catch (JessicaException e) {
             String s1 = "Error: " + e;
             String s2 = "The storage file has been corrupted";
@@ -52,14 +57,13 @@ public class Jessica {
         }
 
         // main logic
-        Scanner scanner = new Scanner(System.in);
         UI.chatbotHello();
         while (true) {
             String input = scanner.nextLine();
-            if (Parser.detectBye(input)) {
+            if (Parser.detectBye(input)) { // Terminate the program
                 break;
             }
-            if (input.trim().isEmpty()) {
+            if (input.trim().isEmpty()) { // Empty input
                 String s = "Cannot add an empty task, try again";
                 UI.prettyPrintArray(new String[] {s});
                 continue;
@@ -68,31 +72,31 @@ public class Jessica {
                 Tag tag = getFirstTag(input);
                 switch (tag) {
                     case LIST:
-                        LogicHandler.handleList(input, list);
+                        logicHandler.handleList(input, list);
                         break;
                     case MARK:
-                        LogicHandler.handleMark(input, list);
+                        logicHandler.handleMark(input, list);
                         break;
                     case UNMARK:
-                        LogicHandler.handleUnmark(input, list);
+                        logicHandler.handleUnmark(input, list);
                         break;
                     case TODO:
-                        LogicHandler.handleToDo(input, list);
+                        logicHandler.handleToDo(input, list);
                         break;
                     case DEADLINE:
-                        LogicHandler.handleDeadline(input, list);
+                        logicHandler.handleDeadline(input, list);
                         break;
                     case EVENT:
-                        LogicHandler.handleEvent(input, list);
+                        logicHandler.handleEvent(input, list);
                         break;
                     case DELETE:
-                        LogicHandler.handleDelete(input, list);
+                        logicHandler.handleDelete(input, list);
                         break;
                     default:
                         System.out.println("Unknown command, try again");
                         break;
                 }
-            } catch (IllegalArgumentException e) { // just add a simple task
+            } catch (IllegalArgumentException e) { // Unknown tag, try again
                 String s1 = "Please specify the type of task";
                 UI.prettyPrintArray(new String[] {s1});
             }
@@ -101,7 +105,7 @@ public class Jessica {
 
         // store data from list to the hard disk
         try {
-            StorageHandler.storeMemToDisk(storagePath, list);
+            storageHandler.storeMemToDisk(list);
         } catch (IOException e) {
             System.out.println("Unable to save to storage");
         } catch (Exception e) {

@@ -24,8 +24,8 @@ public class UI {
 
     public static void prettyPrintList(List<?> list) {
         printBorder();
-        for (Object o : list) {
-            System.out.println("     " + o.toString());
+        for (int i = 0; i < list.size(); i++) {
+            System.out.println("     " + (i + 1) + ". " + list.get(i).toString());
         }
         printBorder();
     }
