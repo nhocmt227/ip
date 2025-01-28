@@ -17,7 +17,7 @@ public class Jessica {
     // An arraylist of tasks.Task to store the Tasks information
     private static List<Task> list = new ArrayList<>();
 
-    public static enum Tag {
+    public enum Tag {
         LIST, MARK, UNMARK, TODO, DEADLINE, EVENT, DELETE, BYE
     }
 
@@ -38,9 +38,16 @@ public class Jessica {
 
         // Load data from hard disk to list
         try {
-            StorageHandler.loadTaskFromFile(storagePath, list);
-        } catch (IOException e) {
-            System.out.println("Unable to open the file storage");
+            StorageHandler.loadDiskToMem(storagePath, list);
+        } catch (JessicaException e) {
+            String s1 = "Error: " + e;
+            String s2 = "The storage file has been corrupted";
+            UI.prettyPrintArray(new String[] {s1, s2});
+            return;
+        } catch (Exception e) {
+            String s1 = "Error: " + e;
+            String s2 = "Error in storage handling";
+            UI.prettyPrintArray(new String[] {s1, s2});
             return;
         }
 
@@ -53,7 +60,8 @@ public class Jessica {
                 break;
             }
             if (input.trim().isEmpty()) {
-                System.out.println("Cannot add an empty task, try again");
+                String s = "Cannot add an empty task, try again";
+                UI.prettyPrintArray(new String[] {s});
                 continue;
             }
             try {
@@ -93,7 +101,7 @@ public class Jessica {
 
         // store data from list to the hard disk
         try {
-            StorageHandler.storeTaskToFile(storagePath, list);
+            StorageHandler.storeMemToDisk(storagePath, list);
         } catch (IOException e) {
             System.out.println("Unable to save to storage");
         } catch (Exception e) {

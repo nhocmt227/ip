@@ -132,5 +132,4 @@ public class LogicHandler {
             UI.prettyPrintArray(new String[] {s1, s2});
         }
     }
-
 }

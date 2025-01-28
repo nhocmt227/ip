@@ -6,13 +6,15 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Scanner;
 import java.io.File;
+
+import exception.JessicaException;
 import tasks.Task;
 import tasks.ToDo;
 import tasks.Deadline;
 import tasks.Event;
 
 public class StorageHandler {
-    public static void loadTaskFromFile(String filePath, List<Task> list) throws IOException {
+    public static void loadDiskToMem(String filePath, List<Task> list) throws IOException, JessicaException {
         File file = new File(filePath);
         // Check if the file exists
         if (!file.exists()) {
@@ -21,57 +23,53 @@ public class StorageHandler {
         Scanner scanner = new Scanner(file);
         while (scanner.hasNextLine()) {
             String data = scanner.nextLine();
-            loadLineToList(list, data);
+            loadLineToMem(list, data);
         }
     }
 
-    public static void loadLineToList(List<Task> list, String line) {
-        try {
-            if (line.isEmpty()) { // EOF
-                return;
-            }
-            String[] parts = line.split("\\|");
+    public static void loadLineToMem(List<Task> list, String line) throws JessicaException {
+        if (line.isEmpty()) { // EOF
+            return;
+        }
+        String[] parts = line.split("\\|");
 
-            // Validate input format
-            if (parts.length < 3) {
-                throw new IllegalArgumentException("Invalid line format: " + line);
-            }
+        // Validate input format
+        if (parts.length < 3) {
+            throw new IllegalArgumentException("Invalid line format: " + line);
+        }
 
-            char taskType = line.charAt(0); // Task type (T, D, E)
-            boolean isDone = parts[1].equals("1");
-            String message = parts[2];
+        char taskType = line.charAt(0); // Task type (T, D, E)
+        boolean isDone = parts[1].equals("1");
+        String message = parts[2];
 
-            switch (taskType) {
-                case 'T': // To-Do
-                    list.add(new ToDo(message, isDone));
-                    break;
-                case 'D': { // Deadline
-                    if (parts.length < 4) {
-                        throw new IllegalArgumentException("Invalid deadline format: " + line);
-                    }
-                    String deadline = parts[3];
-                    list.add(new Deadline(message, Converter.stringToDate(deadline), isDone));
-                    break;
+        switch (taskType) {
+            case 'T': // To-Do
+                list.add(new ToDo(message, isDone));
+                break;
+            case 'D': { // Deadline
+                if (parts.length < 4) {
+                    throw new IllegalArgumentException("Invalid deadline format: " + line);
                 }
-                case 'E': { // Event
-                    if (parts.length < 5) {
-                        throw new IllegalArgumentException("Invalid event format: " + line);
-                    }
-                    String begin = parts[3];
-                    String end = parts[4];
-                    list.add(new Event(message, Converter.stringToDate(begin), Converter.stringToDate(end), isDone));
-                    break;
-                }
-                default:
-                    throw new IllegalArgumentException("Unknown task type: " + taskType);
+                String deadline = parts[3];
+                list.add(new Deadline(message, Converter.stringToDate(deadline), isDone));
+                break;
             }
-        } catch (Exception e) {
-            System.out.println("Error parsing line: " + e.getMessage());
+            case 'E': { // Event
+                if (parts.length < 5) {
+                    throw new IllegalArgumentException("Invalid event format: " + line);
+                }
+                String begin = parts[3];
+                String end = parts[4];
+                list.add(new Event(message, Converter.stringToDate(begin), Converter.stringToDate(end), isDone));
+                break;
+            }
+            default:
+                throw new IllegalArgumentException("Unknown task type: " + taskType);
         }
     }
 
 
-    public static void storeTaskToFile(String filePath, List<Task> list) throws IllegalArgumentException, IOException {
+    public static void storeMemToDisk(String filePath, List<Task> list) throws IllegalArgumentException, IOException {
         FileWriter fw = new FileWriter(filePath);
         StringBuilder sb = new StringBuilder();
         for (Task task : list) {
