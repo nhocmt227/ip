@@ -1,1 +1,1 @@
-java .\src\main\java\Jessica.java
+java .\src\main\java\jessica.Jessica.java

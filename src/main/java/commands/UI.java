@@ -48,7 +48,7 @@ public class UI {
 
     public static void chatbotHello() {
         UI.printPrettyName();
-        String s1 = "Hello! I'm Jessica";
+        String s1 = "Hello! I'm jessica.Jessica";
         String s2 = "What can I do for you?";
         prettyPrintArray(new String[] {s1, s2});
     }

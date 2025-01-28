@@ -1,4 +1,4 @@
-# Jessica User Guide
+# jessica.Jessica User Guide
 
 // Update the title above to match the actual product name
 
