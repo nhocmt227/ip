@@ -36,6 +36,7 @@ public class Jessica {
             System.out.println("Unknown error: " + e.getMessage());
         }
 
+        // Initialization
         StorageHandler storageHandler = new StorageHandler(storagePath);
         Scanner scanner = new Scanner(System.in);
         LogicHandler logicHandler = new LogicHandler(storageHandler);
