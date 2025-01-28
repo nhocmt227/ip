@@ -7,7 +7,7 @@ import java.util.Scanner;
 import exception.JessicaException;
 import tasks.Task;
 import commands.UI;
-import commands.Handler;
+import commands.LogicHandler;
 import commands.Parser;
 import commands.StorageHandler;
 import commands.PathHandler;
@@ -17,8 +17,8 @@ public class Jessica {
     // An arraylist of tasks.Task to store the Tasks information
     private static List<Task> list = new ArrayList<>();
 
-    public static enum Tag {
-        LIST, MARK, UNMARK, TODO, DEADLINE, EVENT, DELETE, BYE
+    public enum Tag {
+        LIST, MARK, UNMARK, TODO, DEADLINE, EVENT, DELETE
     }
 
 
@@ -36,63 +36,76 @@ public class Jessica {
             System.out.println("Unknown error: " + e.getMessage());
         }
 
+        StorageHandler storageHandler = new StorageHandler(storagePath);
+        Scanner scanner = new Scanner(System.in);
+        LogicHandler logicHandler = new LogicHandler(storageHandler);
+
+
         // Load data from hard disk to list
         try {
-            StorageHandler.loadTaskFromFile(storagePath, list);
-        } catch (IOException e) {
-            System.out.println("Unable to open the file storage");
+            storageHandler.loadDiskToMem(list);
+        } catch (JessicaException e) {
+            String s1 = "Error: " + e;
+            String s2 = "The storage file has been corrupted";
+            UI.prettyPrintArray(new String[] {s1, s2});
+            return;
+        } catch (Exception e) {
+            String s1 = "Error: " + e;
+            String s2 = "Error in storage handling";
+            UI.prettyPrintArray(new String[] {s1, s2});
             return;
         }
 
         // main logic
-        Scanner scanner = new Scanner(System.in);
         UI.chatbotHello();
         while (true) {
             String input = scanner.nextLine();
-            if (Parser.detectBye(input)) {
+            if (Parser.detectBye(input)) { // Terminate the program
                 break;
             }
-            if (input.trim().isEmpty()) {
-                System.out.println("Cannot add an empty task, try again");
+            if (input.trim().isEmpty()) { // Empty input
+                String s = "Cannot add an empty task, try again";
+                UI.prettyPrintArray(new String[] {s});
                 continue;
             }
             try {
                 Tag tag = getFirstTag(input);
                 switch (tag) {
                     case LIST:
-                        Handler.handleList(input, list);
+                        logicHandler.handleList(input, list);
                         break;
                     case MARK:
-                        Handler.handleMark(input, list);
+                        logicHandler.handleMark(input, list);
                         break;
                     case UNMARK:
-                        Handler.handleUnmark(input, list);
+                        logicHandler.handleUnmark(input, list);
                         break;
                     case TODO:
-                        Handler.handleToDo(input, list);
+                        logicHandler.handleToDo(input, list);
                         break;
                     case DEADLINE:
-                        Handler.handleDeadline(input, list);
+                        logicHandler.handleDeadline(input, list);
                         break;
                     case EVENT:
-                        Handler.handleEvent(input, list);
+                        logicHandler.handleEvent(input, list);
                         break;
                     case DELETE:
-                        Handler.handleDelete(input, list);
+                        logicHandler.handleDelete(input, list);
                         break;
                     default:
                         System.out.println("Unknown command, try again");
                         break;
                 }
-            } catch (IllegalArgumentException e) { // just add a simple task
-                System.out.println("Please specify the type of task");
+            } catch (IllegalArgumentException e) { // Unknown tag, try again
+                String s1 = "Please specify the type of task";
+                UI.prettyPrintArray(new String[] {s1});
             }
         }
         UI.chatbotGoodbye();
 
         // store data from list to the hard disk
         try {
-            StorageHandler.storeTaskToFile(storagePath, list);
+            storageHandler.storeMemToDisk(list);
         } catch (IOException e) {
             System.out.println("Unable to save to storage");
         } catch (Exception e) {

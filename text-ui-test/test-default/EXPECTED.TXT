@@ -8,100 +8,156 @@
      Hello! I'm Jessica
      What can I do for you?
     ____________________________________________________________
-
-Please specify the type of task
+    ____________________________________________________________
+     Please specify the type of task
+    ____________________________________________________________
     ____________________________________________________________
      Got it. I've added this task:
        [T][ ] borrow books
      Now you have 1 task in the list.
     ____________________________________________________________
-
+    ____________________________________________________________
+     Todo description cannot be empty
+     Usage: todo [description]
+    ____________________________________________________________
     ____________________________________________________________
      Got it. I've added this task:
-       [D][ ] return book (by: Sunday)
+       [T][ ] read books
      Now you have 2 tasks in the list.
     ____________________________________________________________
-
-Index out of bound, try again
-Usage: mark [index]
-Index out of bound, try again
-Usage: unmark [index]
+    ____________________________________________________________
+     [T][ ] borrow books
+     [T][ ] read books
+    ____________________________________________________________
+    ____________________________________________________________
+     Cannot add an empty task, try again
+    ____________________________________________________________
+    ____________________________________________________________
+     Text 'Sunday' could not be parsed at index 0
+     Usage: deadline [description] /by [end date]
+     Date format: yyyy-mm-dd
+    ____________________________________________________________
     ____________________________________________________________
      Got it. I've added this task:
-       [E][ ] project meeting (from: Mon 2pm to: 4pm)
+       [D][ ] return book (by: Nov 19 2022)
      Now you have 3 tasks in the list.
     ____________________________________________________________
-
     ____________________________________________________________
-     1. [T][ ] borrow books
-     2. [D][ ] return book (by: Sunday)
-     3. [E][ ] project meeting (from: Mon 2pm to: 4pm)
+     Wrong deadline format, try again
+     Usage: deadline [description] /by [end date]
     ____________________________________________________________
-
-Cannot add an empty task, try again
-Mark index must not be empty, try again
-Usage: mark [index]
-Mark index must be a number, try again
-Usage: mark [index]
-Unmark index must not be empty, try again
-Usage: unmark [index]
     ____________________________________________________________
-     1. [T][ ] borrow books
-     2. [D][ ] return book (by: Sunday)
-     3. [E][ ] project meeting (from: Mon 2pm to: 4pm)
+     Wrong deadline format, try again
+     Usage: deadline [description] /by [end date]
     ____________________________________________________________
-
-Wrong event format, try again
-Usage: event [description] /from [begin time] /to [end time]
-Wrong event format, try again
-Usage: event [description] /from [begin time] /to [end time]
-Wrong event format, try again
-Usage: event [description] /from [begin time] /to [end time]
-Todo description cannot be empty
-Usage: todo [description]
-Wrong deadline format, try again
-Usage: deadline [description] /by [end date]
-Wrong deadline format, try again
-Usage: deadline [description] /by [end date]
-Wrong deadline format, try again
-Usage: deadline [description] /by [end date]
+    ____________________________________________________________
+     Wrong deadline format, try again
+     Usage: deadline [description] /by [end date]
+    ____________________________________________________________
+    ____________________________________________________________
+     [T][ ] borrow books
+     [T][ ] read books
+     [D][ ] return book (by: Nov 19 2022)
+    ____________________________________________________________
+    ____________________________________________________________
+     Cannot add an empty task, try again
+    ____________________________________________________________
+    ____________________________________________________________
+     Wrong event format, try again
+     Usage: event [description] /from [begin time] /to [end time]
+    ____________________________________________________________
+    ____________________________________________________________
+     Text 'Mon 2pm' could not be parsed at index 0
+     Usage: deadline [description] /by [end date]
+     Date format: yyyy-mm-dd
+    ____________________________________________________________
     ____________________________________________________________
      Got it. I've added this task:
-       [D][ ] /by (by: /by)
+       [E][ ] project meeting (from: Oct 25 2021 to: Nov 10 2022)
      Now you have 4 tasks in the list.
     ____________________________________________________________
-
-Wrong deadline format, try again
-Usage: deadline [description] /by [end date]
-Wrong deadline format, try again
-Usage: deadline [description] /by [end date]
     ____________________________________________________________
-     1. [T][ ] borrow books
-     2. [D][ ] return book (by: Sunday)
-     3. [E][ ] project meeting (from: Mon 2pm to: 4pm)
-     4. [D][ ] /by (by: /by)
+     Wrong event format, try again
+     Usage: event [description] /from [begin time] /to [end time]
     ____________________________________________________________
-
+    ____________________________________________________________
+     Wrong event format, try again
+     Usage: event [description] /from [begin time] /to [end time]
+    ____________________________________________________________
+    ____________________________________________________________
+     [T][ ] borrow books
+     [T][ ] read books
+     [D][ ] return book (by: Nov 19 2022)
+     [E][ ] project meeting (from: Oct 25 2021 to: Nov 10 2022)
+    ____________________________________________________________
+    ____________________________________________________________
+     Cannot add an empty task, try again
+    ____________________________________________________________
+    ____________________________________________________________
+     Mark index must not be empty, try again
+     Usage: mark [index]
+    ____________________________________________________________
+    ____________________________________________________________
+     Mark index must be a number, try again
+     Usage: mark [index]
+    ____________________________________________________________
+    ____________________________________________________________
+     Unmark index must not be empty, try again
+     Usage: unmark [index]
+    ____________________________________________________________
+    ____________________________________________________________
+     Nice! I've marked this task as done:
+       [T][X] borrow books
+    ____________________________________________________________
+    ____________________________________________________________
+     Nice! I've marked this task as done:
+       [D][X] return book (by: Nov 19 2022)
+    ____________________________________________________________
+    ____________________________________________________________
+     [T][X] borrow books
+     [T][ ] read books
+     [D][X] return book (by: Nov 19 2022)
+     [E][ ] project meeting (from: Oct 25 2021 to: Nov 10 2022)
+    ____________________________________________________________
+    ____________________________________________________________
+     Index out of bound, try again
+     Usage: mark [index]
+    ____________________________________________________________
+    ____________________________________________________________
+     OK, I've marked this task as not done yet:
+       [D][ ] return book (by: Nov 19 2022)
+    ____________________________________________________________
+    ____________________________________________________________
+     OK, I've marked this task as not done yet:
+       [T][ ] read books
+    ____________________________________________________________
+    ____________________________________________________________
+     [T][X] borrow books
+     [T][ ] read books
+     [D][ ] return book (by: Nov 19 2022)
+     [E][ ] project meeting (from: Oct 25 2021 to: Nov 10 2022)
+    ____________________________________________________________
+    ____________________________________________________________
+     Cannot add an empty task, try again
+    ____________________________________________________________
     ____________________________________________________________
      Noted. I've removed this task:
-       [D][ ] return book (by: Sunday)
+     [T][ ] read books
      Now you have 3 tasks in the list.
     ____________________________________________________________
-
-Delete index must be a number, try again
-Usage: delete [index]
+    ____________________________________________________________
+     Delete index must be a number, try again
+     Usage: delete [index]
+    ____________________________________________________________
     ____________________________________________________________
      Noted. I've removed this task:
-       [T][ ] borrow books
+     [T][X] borrow books
      Now you have 2 tasks in the list.
     ____________________________________________________________
-
     ____________________________________________________________
-     1. [E][ ] project meeting (from: Mon 2pm to: 4pm)
-     2. [D][ ] /by (by: /by)
+     [D][ ] return book (by: Nov 19 2022)
+     [E][ ] project meeting (from: Oct 25 2021 to: Nov 10 2022)
     ____________________________________________________________
-
     ____________________________________________________________
      Bye. Hope to see you again soon!
     ____________________________________________________________
-

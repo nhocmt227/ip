@@ -1,26 +1,34 @@
 read books
 todo borrow books
+todo
+  todo   read books
+list
+
 deadline return book /by Sunday
-mark 4
-unmark 4
+deadline  return book /by 2022-11-19
+deadline return books/by 2022-11-20
+deadline /by
+deadline /by /bye
+ list
+
+event
 event project meeting /from Mon 2pm /to 4pm
+event project meeting /from 2021-10-25 /to 2022-11-10
+event project meeting /from /to
+event festival /to 2021-10-25 /from 2022-11-10
 list
 
 mark
 mark mark
 unmark
+mark 1
+mark 3
 list
-event project meeting/fromMon 2pm /to 4pm
-event project meeting /from Mon 2pm/to4pm
-event
-todo
-deadline
-deadline
-deadline return book/by Sunday
-deadline /by /by /by
-deadline  /by
-deadline  /by Sunday
+mark 5
+unmark 3
+unmark 2
 list
+
 delete 2
  delete   delete 3
 delete   1
