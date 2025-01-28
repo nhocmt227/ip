@@ -5,7 +5,10 @@ import tasks.Deadline;
 import tasks.Event;
 import tasks.Task;
 import tasks.ToDo;
+
+import java.time.format.DateTimeParseException;
 import java.util.List;
+import java.time.LocalDate;
 
 // Methods to handle logics given the input
 public class Handler {
@@ -66,12 +69,17 @@ public class Handler {
         try {
             String description = Parser.getDeadlineDescription(input);
             String deadline = Parser.getDeadlineDate(input);
-            Task newTask = new Deadline(description, deadline);
+            LocalDate ld = Parser.stringToDate(deadline);
+            Task newTask = new Deadline(description, ld);
             list.add(newTask);
             UI.printAddedTask(newTask, list);
         } catch (JessicaException e) {
             System.out.println(e.getMessage());
             System.out.println("Usage: deadline [description] /by [end date]");
+        } catch (DateTimeParseException e) {
+            System.out.println(e.getMessage());
+            System.out.println("Usage: deadline [description] /by [end date]");
+            System.out.println("Date format: yyyy-mm-dd");
         }
     }
 
