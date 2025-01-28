@@ -7,7 +7,7 @@ import java.util.Scanner;
 import exception.JessicaException;
 import tasks.Task;
 import commands.UI;
-import commands.Handler;
+import commands.LogicHandler;
 import commands.Parser;
 import commands.StorageHandler;
 import commands.PathHandler;
@@ -60,32 +60,33 @@ public class Jessica {
                 Tag tag = getFirstTag(input);
                 switch (tag) {
                     case LIST:
-                        Handler.handleList(input, list);
+                        LogicHandler.handleList(input, list);
                         break;
                     case MARK:
-                        Handler.handleMark(input, list);
+                        LogicHandler.handleMark(input, list);
                         break;
                     case UNMARK:
-                        Handler.handleUnmark(input, list);
+                        LogicHandler.handleUnmark(input, list);
                         break;
                     case TODO:
-                        Handler.handleToDo(input, list);
+                        LogicHandler.handleToDo(input, list);
                         break;
                     case DEADLINE:
-                        Handler.handleDeadline(input, list);
+                        LogicHandler.handleDeadline(input, list);
                         break;
                     case EVENT:
-                        Handler.handleEvent(input, list);
+                        LogicHandler.handleEvent(input, list);
                         break;
                     case DELETE:
-                        Handler.handleDelete(input, list);
+                        LogicHandler.handleDelete(input, list);
                         break;
                     default:
                         System.out.println("Unknown command, try again");
                         break;
                 }
             } catch (IllegalArgumentException e) { // just add a simple task
-                System.out.println("Please specify the type of task");
+                String s1 = "Please specify the type of task";
+                UI.prettyPrintArray(new String[] {s1});
             }
         }
         UI.chatbotGoodbye();

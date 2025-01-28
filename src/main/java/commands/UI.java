@@ -5,38 +5,36 @@ import java.util.List;
 
 // Methods to decorate input
 public class UI {
-    public static String decorateInput(String input) {
-        return "    ____________________________________________________________\n"
-                + "     "
-                + input
-                + "\n"
-                + "    ____________________________________________________________\n";
+
+    public static void printBorder() {
+        System.out.println("    ____________________________________________________________");
     }
 
-    public static String decorateListOfInput(List<?> list) {
-        String result = "    ____________________________________________________________\n";
-        for (int i = 0; i < list.size(); i++) {
-            String temp = "     " + (i + 1) + ". " + list.get(i).toString() + "\n";
-            result += temp;
+    public static void printArray(String[] items) {
+        for (String item : items) {
+            System.out.println("     " + item);
         }
-        result += "    ____________________________________________________________\n";
-        return result;
     }
 
-    public static void prettyPrint(String input) {
-        System.out.println(decorateInput(input));
+    public static void prettyPrintArray(String[] items) {
+        printBorder();
+        printArray(items);
+        printBorder();
     }
 
     public static void prettyPrintList(List<?> list) {
-        System.out.println(decorateListOfInput(list));
+        printBorder();
+        for (Object o : list) {
+            System.out.println("     " + o.toString());
+        }
+        printBorder();
     }
 
     public static void printAddedTask(Task task, List<?> list) {
-        String content = "Got it. I've added this task:\n"
-                + "       "
-                + task.toString() + "\n"
-                + "     Now you have " + getTaskCountMessage(list) + " in the list.";
-        prettyPrint(content);
+        String s1 = "Got it. I've added this task:";
+        String s2 = "  " + task.toString();
+        String s3 = "Now you have " + getTaskCountMessage(list) + " in the list.";
+        prettyPrintArray(new String[] {s1, s2, s3});
     }
 
     public static void printPrettyName() {
@@ -48,19 +46,20 @@ public class UI {
         System.out.println(s);
     }
 
+    public static void chatbotHello() {
+        UI.printPrettyName();
+        String s1 = "Hello! I'm Jessica";
+        String s2 = "What can I do for you?";
+        prettyPrintArray(new String[] {s1, s2});
+    }
+
+    public static void chatbotGoodbye() {
+        String s1 = "Bye. Hope to see you again soon!";
+        prettyPrintArray(new String[] {s1});
+    }
+
     public static String getTaskCountMessage(List<?> list) {
         int size = list.size();
         return size + " task" + (size == 1 ? "" : "s");
     }
-
-    public static void chatbotHello() {
-        UI.printPrettyName();
-        System.out.println(UI.decorateInput("Hello! I'm Jessica\n" +
-                "     What can I do for you?"));
-    }
-
-    public static void chatbotGoodbye() {
-        UI.prettyPrint("Bye. Hope to see you again soon!");
-    }
-
 }

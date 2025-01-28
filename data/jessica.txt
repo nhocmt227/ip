@@ -1,2 +1,3 @@
-T|0|project meeting|Mon 2pm|4pm
-D|0|/by|/by
+T|0|project meeting
+T|0|project meeting
+T|0|project meeting

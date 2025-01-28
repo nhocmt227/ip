@@ -50,7 +50,7 @@ public class StorageHandler {
                         throw new IllegalArgumentException("Invalid deadline format: " + line);
                     }
                     String deadline = parts[3];
-                    list.add(new Deadline(message, deadline, isDone));
+                    list.add(new Deadline(message, Converter.stringToDate(deadline), isDone));
                     break;
                 }
                 case 'E': { // Event
@@ -59,7 +59,7 @@ public class StorageHandler {
                     }
                     String begin = parts[3];
                     String end = parts[4];
-                    list.add(new Event(message, begin, end, isDone));
+                    list.add(new Event(message, Converter.stringToDate(begin), Converter.stringToDate(end), isDone));
                     break;
                 }
                 default:
@@ -85,7 +85,7 @@ public class StorageHandler {
                 s += task.getDescription();
                 s += "\n";
             } else if (task instanceof Deadline) {
-                if (task.getDescription().contains("|") || ((Deadline) task).getDeadline().contains("|")) {
+                if (task.getDescription().contains("|") || ((Deadline) task).getDeadline().toString().contains("|")) {
                     throw new IllegalArgumentException("message cannot contain |");
                 }
                 s += "D|";
@@ -97,10 +97,10 @@ public class StorageHandler {
                 if (task.getDescription().contains("|")) {
                     throw new IllegalArgumentException("message cannot contain |");
                 }
-                if (((Event) task).getBegin().contains("|")) {
+                if (((Event) task).getBegin().toString().contains("|")) {
                     throw new IllegalArgumentException("message cannot contain |");
                 }
-                if (((Event) task).getEnd().contains("|")) {
+                if (((Event) task).getEnd().toString().contains("|")) {
                     throw new IllegalArgumentException("message cannot contain |");
                 }
                 s += "T|";
