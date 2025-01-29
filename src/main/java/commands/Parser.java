@@ -9,6 +9,8 @@ import java.util.Locale;
 
 // Methods to identify or get input patterns
 public class Parser {
+
+    // No index checking with the list length
     public static int getMarkIndex(String input) throws JessicaException {
         try {
             String[] parts = input.split("mark\\s+", 2);
@@ -66,7 +68,7 @@ public class Parser {
         if (description.trim().isEmpty()) {
             throw new JessicaException("Todo description cannot be empty");
         } else {
-            return description;
+            return description.strip();
         }
     }
 
@@ -79,7 +81,7 @@ public class Parser {
         if (bodyParts[0].trim().isEmpty()) {
             throw new JessicaException("Wrong deadline format, try again");
         }
-        return bodyParts[0].trim();
+        return bodyParts[0].strip();
     }
 
     public static String getDeadlineDate(String input) throws JessicaException {
@@ -91,7 +93,7 @@ public class Parser {
         if (bodyParts.length == 1 || bodyParts[1].trim().isEmpty()) {
             throw new JessicaException("Wrong deadline format, try again");
         }
-        return bodyParts[1];
+        return bodyParts[1].strip();
     }
 
     public static String getEventDescription(String input) throws JessicaException {
@@ -103,7 +105,7 @@ public class Parser {
         if (bodyParts[0].trim().isEmpty()) {
             throw new JessicaException("Wrong event format, try again");
         }
-        return bodyParts[0].trim();
+        return bodyParts[0].strip();
     }
 
     public static String getEventBeginDate(String input) throws JessicaException {
@@ -119,7 +121,7 @@ public class Parser {
         if (bodyParts[0].trim().isEmpty()) {
             throw new JessicaException("Wrong event format, try again");
         }
-        return bodyParts[0];
+        return bodyParts[0].strip();
     }
 
     public static String getEventEndDate(String input) throws JessicaException {
@@ -135,7 +137,7 @@ public class Parser {
         if (bodyParts.length == 1 || bodyParts[1].trim().isEmpty()) {
             throw new JessicaException("Wrong event format, try again");
         }
-        return bodyParts[1];
+        return bodyParts[1].strip();
     }
 
     public static String[] parse(String input) {
