@@ -194,7 +194,25 @@ public class ParserTest {
         assertThrows(JessicaException.class, () -> Parser.getEventEndDate("event company retreat /from next Monday"));
     }
 
-    // Unit test for getEventEndDate method
+    // Unit test for getFindDescription method
+    @Test
+    public void getFindDescription_validInput() throws JessicaException {
+        assertEquals("aaa", Parser.getFindDescription("find aaa"));
+        assertEquals("bbb", Parser.getFindDescription("  find  bbb"));
+        assertEquals("ccc", Parser.getFindDescription("find  ccc "));
+    }
+
+    @Test
+    public void getFindDescription_inValidInput() {
+        assertThrows(JessicaException.class, () -> Parser.getFindDescription("find"));
+        assertThrows(JessicaException.class, () -> Parser.getFindDescription(" find   "));
+        assertThrows(JessicaException.class, () -> Parser.getFindDescription("2find"));
+        assertThrows(JessicaException.class, () -> Parser.getFindDescription("findmessage"));
+        assertThrows(JessicaException.class, () -> Parser.getFindDescription("findfind"));
+        assertThrows(JessicaException.class, () -> Parser.getFindDescription("3 find"));
+    }
+
+    // Unit test for detectBye method
     @Test
     public void detectBye_exactMatch() {
         assertTrue(Parser.detectBye("bye"));

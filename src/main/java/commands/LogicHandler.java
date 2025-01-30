@@ -8,6 +8,7 @@ import tasks.ToDo;
 
 import java.io.IOException;
 import java.time.format.DateTimeParseException;
+import java.util.ArrayList;
 import java.util.List;
 import java.time.LocalDate;
 
@@ -20,23 +21,25 @@ import java.time.LocalDate;
 public class LogicHandler {
 
     private final StorageHandler storageHandler;
+    private final List<Task> list;
 
     /**
      * Constructor to initialize LogicHandler with a storage handler.
      *
      * @param storageHandler The handler to manage storage operations.
+     * @param list to store the list object.
      */
-    public LogicHandler(StorageHandler storageHandler) {
+    public LogicHandler(StorageHandler storageHandler, List<Task> list) {
         this.storageHandler = storageHandler;
+        this.list = list;
     }
 
     /**
      * Handles the list command by displaying all tasks in the list.
      *
      * @param input The user's input command.
-     * @param list  The list of tasks.
      */
-    public void handleList(String input, List<Task> list) {
+    public void handleList(String input) {
         if (input.trim().equals("list")) {
             UI.prettyPrintList(list);
         } else {
@@ -50,9 +53,8 @@ public class LogicHandler {
      * Handles marking a task as completed.
      *
      * @param input The user's input command.
-     * @param list  The list of tasks.
      */
-    public void handleMark(String input, List<Task> list) {
+    public void handleMark(String input) {
         try {
             int index = Parser.getMarkIndex(input);
             Task task = list.get(index - 1);
@@ -80,9 +82,8 @@ public class LogicHandler {
      * Handles unmarking a task as incomplete.
      *
      * @param input The user's input command.
-     * @param list  The list of tasks.
      */
-    public void handleUnmark(String input, List<Task> list) {
+    public void handleUnmark(String input) {
         try {
             int index = Parser.getUnmarkIndex(input);
             Task task = list.get(index - 1);
@@ -110,9 +111,8 @@ public class LogicHandler {
      * Handles adding a new ToDo task.
      *
      * @param input The user's input command.
-     * @param list  The list of tasks.
      */
-    public void handleToDo(String input, List<Task> list) {
+    public void handleToDo(String input) {
         try {
             String description = Parser.getToDoDescription(input);
             Task newTask = new ToDo(description);
@@ -134,9 +134,8 @@ public class LogicHandler {
      * Handles adding a new Deadline task.
      *
      * @param input The user's input command.
-     * @param list  The list of tasks.
      */
-    public void handleDeadline(String input, List<Task> list) {
+    public void handleDeadline(String input) {
         try {
             String description = Parser.getDeadlineDescription(input);
             String deadline = Parser.getDeadlineDate(input);
@@ -165,9 +164,8 @@ public class LogicHandler {
      * Handles adding a new Event task.
      *
      * @param input The user's input command.
-     * @param list  The list of tasks.
      */
-    public void handleEvent(String input, List<Task> list) {
+    public void handleEvent(String input) {
         try {
             String description = Parser.getEventDescription(input);
             String begin = Parser.getEventBeginDate(input);
@@ -196,9 +194,8 @@ public class LogicHandler {
      * Handles deleting a task from the list.
      *
      * @param input The user's input command.
-     * @param list  The list of tasks.
      */
-    public void handleDelete(String input, List<Task> list) {
+    public void handleDelete(String input) {
         try {
             int index = Parser.getDeleteIndex(input);
             Task task = list.get(index - 1);
@@ -221,5 +218,31 @@ public class LogicHandler {
             String s2 = "Error when store data to file";
             UI.prettyPrintArray(new String[] {s1, s2});
         }
+    }
+
+    /**
+     * Handles finding tasks from the list based on a pattern.
+     *
+     * @param input The user's input command.
+     */
+    public void handleFind(String input) {
+        try {
+            String description = Parser.getFindDescription(input);
+            List<Task> listToFind = new ArrayList<>();
+            for (int i = 0; i < this.list.size(); i++) {
+                Task t = this.list.get(i);
+                String s = t.toString();
+                if (t.toString().contains(description)) {
+                    listToFind.add(t);
+                }
+            }
+            UI.prettyPrintList(listToFind);
+            System.out.println("handleFind executed: " + input);
+        } catch (JessicaException e) {
+            String s1 = e.getMessage();
+            String s2 = "Usage: find [message]";
+            UI.prettyPrintArray(new String[] {s1, s2});
+        }
+
     }
 }
