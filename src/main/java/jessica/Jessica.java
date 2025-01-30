@@ -16,26 +16,37 @@ import commands.Parser;
 import commands.StorageHandler;
 import commands.PathHandler;
 
+/**
+ * The main class for the Jessica chatbot application.
+ * This class initializes the chatbot, handles user input, manages tasks, and interacts with storage.
+ */
 public class Jessica {
 
-    // An arraylist of tasks.Task to store the Tasks information
+    /**
+     * The list of tasks used to store task information in memory.
+     */
     private static List<Task> list = new ArrayList<>();
 
+    /**
+     * Enum representing the different command tags that the chatbot recognizes.
+     */
     public enum Tag {
         LIST, MARK, UNMARK, TODO, DEADLINE, EVENT, DELETE
     }
 
+    /**
+     * The main method of the Jessica application.
+     * It initializes storage, loads tasks, and continuously handles user input until the "bye" command is issued.
+     *
+     * @param args Command-line arguments (not used in this application).
+     */
     public static void main(String[] args) {
         // get path to storage
-        File currentFile = new File("");
         String storagePath = "";
         try {
-            String currentDirPath = currentFile.getCanonicalPath();
             storagePath = PathHandler.findStoragePath();
         } catch (JessicaException e) {
             System.out.println(e.getMessage());
-        } catch (IOException e) {
-            System.out.println("Unknown error: " + e.getMessage());
         } catch (URISyntaxException e) {
             System.out.println(e.getMessage());
             System.out.println("Unknown error in PathHandler");
@@ -119,6 +130,13 @@ public class Jessica {
         }
     }
 
+    /**
+     * Parses the user's input to determine the command type.
+     *
+     * @param input The user's input string.
+     * @return The corresponding {@code Tag} enum representing the command.
+     * @throws IllegalArgumentException If the command is not recognized.
+     */
     public static Tag getFirstTag(String input) {
         input = input.trim();
         String tagStr = input.split("\\s+", 2)[0];

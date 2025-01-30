@@ -11,15 +11,31 @@ import java.util.Scanner;
 import exception.JessicaException;
 import tasks.Task;
 
+/**
+ * Handles storage operations such as loading and saving tasks to and from disk.
+ * It ensures proper file handling, including file creation, data reading, and writing.
+ */
 public class StorageHandler {
 
     private final String filePath;
 
+    /**
+     * Constructor to initialize the storage handler with a file path.
+     *
+     * @param filePath The path to the file where tasks will be stored.
+     */
     public StorageHandler(String filePath) {
         this.filePath = filePath;
     }
 
-    // Methods to load
+    /**
+     * Loads tasks from the disk file into memory.
+     * If the file or parent directories do not exist, they are created.
+     *
+     * @param list The list where tasks will be loaded.
+     * @throws IOException       If an I/O error occurs.
+     * @throws JessicaException  If an error occurs while parsing task data.
+     */
     public void loadDiskToMem(List<Task> list) throws IOException, JessicaException {
         Path filePath = Paths.get(this.filePath);
 
@@ -41,6 +57,13 @@ public class StorageHandler {
         }
     }
 
+    /**
+     * Parses a line of data from the file and adds the corresponding task to the list.
+     *
+     * @param list The list to which the task will be added.
+     * @param line A line of task data from the file.
+     * @throws JessicaException If an error occurs while parsing the line.
+     */
     public void loadLineToMem(List<Task> list, String line) throws JessicaException {
         if (line.isEmpty()) {
             return;
@@ -49,8 +72,14 @@ public class StorageHandler {
         list.add(task);
     }
 
-    // Methods to store
-    // Erasing all content in the file and write from the start
+    /**
+     * Stores all tasks from memory to the disk file.
+     * This method overwrites the file content.
+     *
+     * @param list The list of tasks to be stored.
+     * @throws IllegalArgumentException If the list is null or invalid.
+     * @throws IOException              If an I/O error occurs during file writing.
+     */
     public void storeMemToDisk(List<Task> list) throws IllegalArgumentException, IOException {
         FileWriter fw = new FileWriter(this.filePath);
         StringBuilder sb = new StringBuilder();
@@ -62,7 +91,12 @@ public class StorageHandler {
         fw.close();
     }
 
-    // Method to insert a new line to the end of file
+    /**
+     * Appends a single task to the disk file.
+     *
+     * @param task The task to be stored.
+     * @throws IOException If an I/O error occurs during file writing.
+     */
     public void storeTaskToDisk(Task task) throws IOException {
         String line = Converter.taskToDataLine(task);
         // todo store to file
@@ -71,7 +105,13 @@ public class StorageHandler {
         writer.close();
     }
 
-    // This method is used to compact the jessica.txt file, removing all the unnecessary lines
+    /**
+     * Refactors the task storage file by clearing and rewriting all tasks.
+     * This removes unnecessary or malformed lines in the file.
+     *
+     * @throws IOException       If an I/O error occurs during file operations.
+     * @throws JessicaException  If an error occurs while loading or parsing tasks.
+     */
     public void refactor() throws IOException, JessicaException {
         List<Task> list = new ArrayList<>();
         loadDiskToMem(list);
@@ -79,6 +119,11 @@ public class StorageHandler {
         storeMemToDisk(list);
     }
 
+    /**
+     * Clears all content in the task storage file.
+     *
+     * @throws IOException If an I/O error occurs during file writing.
+     */
     public void clearFileContent() throws IOException {
         FileWriter writer = new FileWriter(this.filePath);
         writer.write("");

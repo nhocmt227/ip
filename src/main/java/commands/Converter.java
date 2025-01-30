@@ -11,20 +11,44 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.Locale;
 
+/**
+ * Handles conversions between strings, dates, and tasks for storage and display purposes.
+ * This class helps with parsing and formatting task data from and to storage format.
+ */
 public class Converter {
-    // Example: 2022-11-11 -> new LocalDate()
+
+    /**
+     * Converts a date string in ISO format (yyyy-MM-dd) to a {@code LocalDate} object.
+     *
+     * @param deadline The date string to convert.
+     * @return The parsed {@code LocalDate} object.
+     * @throws DateTimeParseException If the date string is not in a valid format.
+     */
     public static LocalDate stringToDate(String deadline) throws DateTimeParseException {
         deadline = deadline.strip();
         DateTimeFormatter formatter = DateTimeFormatter.ISO_LOCAL_DATE;
         return LocalDate.parse(deadline, formatter);
     }
 
-    // Example: LocalDate ld -> Oct 12 2022
+    /**
+     * Formats a {@code LocalDate} object to a string in the format "MMM dd yyyy" (e.g., Oct 12 2022).
+     *
+     * @param date The {@code LocalDate} to format.
+     * @return The formatted date string.
+     */
     public static String dateToFormattedString(LocalDate date) {
         DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("MMM dd yyyy", Locale.ENGLISH);
         return date.format(outputFormatter);
     }
 
+    /**
+     * Converts a line of data from storage format to a {@code Task} object.
+     *
+     * @param line The data line to convert.
+     * @return The corresponding {@code Task} object.
+     * @throws JessicaException         If a task-specific error occurs.
+     * @throws IllegalArgumentException If the line format is invalid or unknown.
+     */
     public static Task dataLineToTask(String line) throws JessicaException {
         if (line.isEmpty()) {
             return null;
@@ -61,6 +85,13 @@ public class Converter {
         }
     }
 
+    /**
+     * Converts a {@code Task} object to a string formatted for storage.
+     *
+     * @param task The task to convert.
+     * @return The formatted data line representing the task.
+     * @throws IllegalArgumentException If the task contains invalid characters (e.g., the '|' character) or if the task type is unknown.
+     */
     public static String taskToDataLine(Task task) {
         String s = "";
         if (task instanceof ToDo) {

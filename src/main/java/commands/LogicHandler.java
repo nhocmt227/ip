@@ -11,15 +11,31 @@ import java.time.format.DateTimeParseException;
 import java.util.List;
 import java.time.LocalDate;
 
-// Methods to handle logics given the input
+/**
+ * Handles various task-related operations, such as adding, deleting, marking tasks,
+ * and managing task deadlines and events. This class processes input and interacts
+ * with the storage and UI components.
+ */
+
 public class LogicHandler {
 
     private final StorageHandler storageHandler;
 
+    /**
+     * Constructor to initialize LogicHandler with a storage handler.
+     *
+     * @param storageHandler The handler to manage storage operations.
+     */
     public LogicHandler(StorageHandler storageHandler) {
         this.storageHandler = storageHandler;
     }
 
+    /**
+     * Handles the list command by displaying all tasks in the list.
+     *
+     * @param input The user's input command.
+     * @param list  The list of tasks.
+     */
     public void handleList(String input, List<Task> list) {
         if (input.trim().equals("list")) {
             UI.prettyPrintList(list);
@@ -30,6 +46,12 @@ public class LogicHandler {
         }
     }
 
+    /**
+     * Handles marking a task as completed.
+     *
+     * @param input The user's input command.
+     * @param list  The list of tasks.
+     */
     public void handleMark(String input, List<Task> list) {
         try {
             int index = Parser.getMarkIndex(input);
@@ -54,6 +76,12 @@ public class LogicHandler {
         }
     }
 
+    /**
+     * Handles unmarking a task as incomplete.
+     *
+     * @param input The user's input command.
+     * @param list  The list of tasks.
+     */
     public void handleUnmark(String input, List<Task> list) {
         try {
             int index = Parser.getUnmarkIndex(input);
@@ -78,6 +106,12 @@ public class LogicHandler {
         }
     }
 
+    /**
+     * Handles adding a new ToDo task.
+     *
+     * @param input The user's input command.
+     * @param list  The list of tasks.
+     */
     public void handleToDo(String input, List<Task> list) {
         try {
             String description = Parser.getToDoDescription(input);
@@ -96,6 +130,12 @@ public class LogicHandler {
         }
     }
 
+    /**
+     * Handles adding a new Deadline task.
+     *
+     * @param input The user's input command.
+     * @param list  The list of tasks.
+     */
     public void handleDeadline(String input, List<Task> list) {
         try {
             String description = Parser.getDeadlineDescription(input);
@@ -121,6 +161,12 @@ public class LogicHandler {
         }
     }
 
+    /**
+     * Handles adding a new Event task.
+     *
+     * @param input The user's input command.
+     * @param list  The list of tasks.
+     */
     public void handleEvent(String input, List<Task> list) {
         try {
             String description = Parser.getEventDescription(input);
@@ -146,6 +192,12 @@ public class LogicHandler {
         }
     }
 
+    /**
+     * Handles deleting a task from the list.
+     *
+     * @param input The user's input command.
+     * @param list  The list of tasks.
+     */
     public void handleDelete(String input, List<Task> list) {
         try {
             int index = Parser.getDeleteIndex(input);
