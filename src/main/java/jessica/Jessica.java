@@ -73,7 +73,7 @@ public class Jessica {
             return;
         }
 
-        // main logic
+        // Main application logic
         UI.chatbotHello();
         while (true) {
             String input = scanner.nextLine();
@@ -120,7 +120,7 @@ public class Jessica {
         }
         UI.chatbotGoodbye();
 
-        // store data from list to the hard disk
+        // Store data from list to the hard disk
         try {
             storageHandler.storeMemToDisk(list);
         } catch (IOException e) {
