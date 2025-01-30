@@ -38,6 +38,10 @@ public class Jessica {
             System.out.println("Unknown error: " + e.getMessage());
         }
 
+        // Print configuration settings
+        System.out.println(storagePath);
+        System.out.println(System.getProperty("user.dir"));
+
         // Initialization
         StorageHandler storageHandler = new StorageHandler(storagePath);
         Scanner scanner = new Scanner(System.in);

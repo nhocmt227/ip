@@ -26,7 +26,6 @@ public class StorageHandler {
         Scanner scanner = new Scanner(file);
         while (scanner.hasNextLine()) {
             String data = scanner.nextLine();
-            System.out.println("Data: [" + data + "]");
             loadLineToMem(list, data);
         }
     }

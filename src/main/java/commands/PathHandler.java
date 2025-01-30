@@ -4,6 +4,8 @@ import exception.JessicaException;
 
 public class PathHandler {
     public static String findStoragePath(String currentDirPath) throws JessicaException {
+        String originalPath = currentDirPath;
+        // Handle the case when current location is inside the project
         currentDirPath = currentDirPath.replace("\\", "/");
         for (int i = currentDirPath.length() - 1; i >= 0; i--) {
             if (currentDirPath.charAt(i) == '/') {
@@ -14,6 +16,9 @@ public class PathHandler {
                 currentDirPath = currentDirPath.substring(0, i);
             }
         }
-        throw new JessicaException("Unknown error when find path");
+
+        // Handle the case when current location is outside the project
+        originalPath = originalPath + "/ip/data/jessica.txt";
+        return originalPath;
     }
 }

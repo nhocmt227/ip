@@ -14,7 +14,7 @@ import java.time.LocalDate;
 // Methods to handle logics given the input
 public class LogicHandler {
 
-    private StorageHandler storageHandler;
+    private final StorageHandler storageHandler;
 
     public LogicHandler(StorageHandler storageHandler) {
         this.storageHandler = storageHandler;

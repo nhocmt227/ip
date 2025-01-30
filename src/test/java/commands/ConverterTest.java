@@ -106,17 +106,16 @@ public class ConverterTest {
         assertThrows(IllegalArgumentException.class, () -> Converter.dataLineToTask("E|1|Company retreat|2024-08-10")); // Missing end date
     }
 
-//    @Test
-//    public void dataLineToTask_unknownFormat_exceptionThrown() {
-//        assertThrows(IllegalArgumentException.class, () -> Converter.dataLineToTask("")); // Empty
-//        assertThrows(IllegalArgumentException.class, () -> Converter.dataLineToTask("|||")); // Invalid
-//        assertThrows(IllegalArgumentException.class, () -> Converter.dataLineToTask("T|T")); // Invalid
-//        assertThrows(IllegalArgumentException.class, () -> Converter.dataLineToTask("|T |")); // Invalid
-//        assertThrows(IllegalArgumentException.class, () -> Converter.dataLineToTask("TDE")); // Invalid
-//        assertThrows(IllegalArgumentException.class, () -> Converter.dataLineToTask("1|T|October|")); // Invalid
-//        assertThrows(IllegalArgumentException.class, () -> Converter.dataLineToTask("E|1||Company retreat|2024-08-10|2024-09-11")); // Invalid
-//        assertThrows(IllegalArgumentException.class, () -> Converter.dataLineToTask("|1|Company")); // Invalid
-//    }
+    @Test
+    public void dataLineToTask_unknownFormat_exceptionThrown() {
+        assertThrows(Exception.class, () -> Converter.dataLineToTask("|||")); // Invalid
+        assertThrows(Exception.class, () -> Converter.dataLineToTask("T|T")); // Invalid
+        assertThrows(Exception.class, () -> Converter.dataLineToTask("|T |")); // Invalid
+        assertThrows(Exception.class, () -> Converter.dataLineToTask("TDE")); // Invalid
+        assertThrows(Exception.class, () -> Converter.dataLineToTask("1|T|October|")); // Invalid
+        assertThrows(Exception.class, () -> Converter.dataLineToTask("E|1||Company retreat|2024-08-10|2024-09-11")); // Invalid
+        assertThrows(Exception.class, () -> Converter.dataLineToTask("|1|Company")); // Invalid
+    }
 
 
     @Test
