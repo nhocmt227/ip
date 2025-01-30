@@ -2,6 +2,8 @@ package jessica;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.URISyntaxException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -31,16 +33,15 @@ public class Jessica {
         String storagePath = "";
         try {
             String currentDirPath = currentFile.getCanonicalPath();
-            storagePath = PathHandler.findStoragePath(currentDirPath);
+            storagePath = PathHandler.findStoragePath();
         } catch (JessicaException e) {
             System.out.println(e.getMessage());
         } catch (IOException e) {
             System.out.println("Unknown error: " + e.getMessage());
+        } catch (URISyntaxException e) {
+            System.out.println(e.getMessage());
+            System.out.println("Unknown error in PathHandler");
         }
-
-        // Print configuration settings
-        System.out.println(storagePath);
-        System.out.println(System.getProperty("user.dir"));
 
         // Initialization
         StorageHandler storageHandler = new StorageHandler(storagePath);

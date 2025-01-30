@@ -1,44 +1,32 @@
 package commands;
 
 import exception.JessicaException;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+
+import java.io.IOException;
+import java.net.URISyntaxException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
+/**
+ * Warning:
+ * This test class only work in the local developer's computer
+ * To make this test class to work in a different environment,
+ * modify the CORRECT_PATH to point to the storage location in your computer
+ */
+
 public class PathHandlerTest {
+
+    private static final String CORRECT_PATH = "/C:/Users/phong/Documents/Local Computer/NUS/Y2S2/CS2103T/Individual Project/ip/data/jessica.txt";
+
     // ✅ Test valid "ip" directory at the end
     @Test
-    public void findStoragePath_validIpDirectory() throws JessicaException {
-        assertEquals("/Users/test/ip/data/jessica.txt", PathHandler.findStoragePath("/Users/test/ip"));
-        assertEquals("/home/user/ip/data/jessica.txt", PathHandler.findStoragePath("/home/user/ip"));
+    public void findStoragePath_validIpDirectory() throws JessicaException, URISyntaxException {
+        assertEquals(CORRECT_PATH, PathHandler.findStoragePath());
     }
-
-    // ✅ Test valid "ip" directory nested inside another folder
-    @Test
-    public void findStoragePath_nestedIpDirectory() throws JessicaException {
-        assertEquals("/Users/test/ip/data/jessica.txt", PathHandler.findStoragePath("/Users/test/ip/project"));
-        assertEquals("/home/user/ip/data/jessica.txt", PathHandler.findStoragePath("/home/user/ip/code"));
-    }
-
-    // ✅ Test Windows-style path conversion
-    @Test
-    public void findStoragePath_windowsPathConversion() throws JessicaException {
-        assertEquals("C:/Users/test/ip/data/jessica.txt", PathHandler.findStoragePath("C:\\Users\\test\\ip"));
-        assertEquals("D:/workspace/ip/data/jessica.txt", PathHandler.findStoragePath("D:\\workspace\\ip"));
-    }
-
-    // ✅ Test path outside the directory
-    @Test
-    public void findStoragePath_outsideDirectory() throws JessicaException {
-        assertEquals("C:/Users/test/ip/data/jessica.txt", PathHandler.findStoragePath("C:/Users/test"));
-        assertEquals("D:/workspace/ip/data/jessica.txt", PathHandler.findStoragePath("D:/workspace"));
-    }
-//    // ✅ Test path at random location
-//    @Test
-//    public void findStoragePath_randomLocation() throws JessicaException {
-//        assertEquals("C:/Users/test/ip/data/jessica.txt", PathHandler.findStoragePath("C:/Users/test"));
-//        assertEquals("D:/workspace/ip/data/jessica.txt", PathHandler.findStoragePath("D:/workspace"));
-//    }
 
 }
