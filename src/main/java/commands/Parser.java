@@ -140,6 +140,20 @@ public class Parser {
         return bodyParts[1].strip();
     }
 
+    public static String getFindDescription(String input) throws JessicaException {
+        input = input.strip();  // Remove leading and trailing whitespace
+        if (!input.startsWith("find ")) {
+            throw new JessicaException("Wrong find description, try again");
+        }
+
+        String description = input.substring(5).strip();  // Get everything after "find "
+        if (description.isEmpty()) {
+            throw new JessicaException("No description provided, try again");
+        }
+
+        return description;
+    }
+
     public static String[] parse(String input) {
         /*
          * This method parses all the tag in that input

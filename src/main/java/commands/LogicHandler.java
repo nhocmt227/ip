@@ -8,6 +8,7 @@ import tasks.ToDo;
 
 import java.io.IOException;
 import java.time.format.DateTimeParseException;
+import java.util.ArrayList;
 import java.util.List;
 import java.time.LocalDate;
 
@@ -15,12 +16,14 @@ import java.time.LocalDate;
 public class LogicHandler {
 
     private final StorageHandler storageHandler;
+    private final List<Task> list;
 
-    public LogicHandler(StorageHandler storageHandler) {
+    public LogicHandler(StorageHandler storageHandler, List<Task> list) {
         this.storageHandler = storageHandler;
+        this.list = list;
     }
 
-    public void handleList(String input, List<Task> list) {
+    public void handleList(String input) {
         if (input.trim().equals("list")) {
             UI.prettyPrintList(list);
         } else {
@@ -30,7 +33,7 @@ public class LogicHandler {
         }
     }
 
-    public void handleMark(String input, List<Task> list) {
+    public void handleMark(String input) {
         try {
             int index = Parser.getMarkIndex(input);
             Task task = list.get(index - 1);
@@ -54,7 +57,7 @@ public class LogicHandler {
         }
     }
 
-    public void handleUnmark(String input, List<Task> list) {
+    public void handleUnmark(String input) {
         try {
             int index = Parser.getUnmarkIndex(input);
             Task task = list.get(index - 1);
@@ -78,7 +81,7 @@ public class LogicHandler {
         }
     }
 
-    public void handleToDo(String input, List<Task> list) {
+    public void handleToDo(String input) {
         try {
             String description = Parser.getToDoDescription(input);
             Task newTask = new ToDo(description);
@@ -96,7 +99,7 @@ public class LogicHandler {
         }
     }
 
-    public void handleDeadline(String input, List<Task> list) {
+    public void handleDeadline(String input) {
         try {
             String description = Parser.getDeadlineDescription(input);
             String deadline = Parser.getDeadlineDate(input);
@@ -121,7 +124,7 @@ public class LogicHandler {
         }
     }
 
-    public void handleEvent(String input, List<Task> list) {
+    public void handleEvent(String input) {
         try {
             String description = Parser.getEventDescription(input);
             String begin = Parser.getEventBeginDate(input);
@@ -146,7 +149,7 @@ public class LogicHandler {
         }
     }
 
-    public void handleDelete(String input, List<Task> list) {
+    public void handleDelete(String input) {
         try {
             int index = Parser.getDeleteIndex(input);
             Task task = list.get(index - 1);
@@ -169,5 +172,26 @@ public class LogicHandler {
             String s2 = "Error when store data to file";
             UI.prettyPrintArray(new String[] {s1, s2});
         }
+    }
+
+    public void handleFind(String input) {
+        try {
+            String description = Parser.getFindDescription(input);
+            List<Task> listToFind = new ArrayList<>();
+            for (int i = 0; i < this.list.size(); i++) {
+                Task t = this.list.get(i);
+                String s = t.toString();
+                if (t.toString().contains(description)) {
+                    listToFind.add(t);
+                }
+            }
+            UI.prettyPrintList(listToFind);
+            System.out.println("handleFind executed: " + input);
+        } catch (JessicaException e) {
+            String s1 = e.getMessage();
+            String s2 = "Usage: find [message]";
+            UI.prettyPrintArray(new String[] {s1, s2});
+        }
+
     }
 }

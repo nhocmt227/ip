@@ -22,7 +22,7 @@ public class Jessica {
     private static List<Task> list = new ArrayList<>();
 
     public enum Tag {
-        LIST, MARK, UNMARK, TODO, DEADLINE, EVENT, DELETE
+        LIST, MARK, UNMARK, TODO, DEADLINE, EVENT, DELETE, FIND
     }
 
     public static void main(String[] args) {
@@ -44,7 +44,7 @@ public class Jessica {
         // Initialization
         StorageHandler storageHandler = new StorageHandler(storagePath);
         Scanner scanner = new Scanner(System.in);
-        LogicHandler logicHandler = new LogicHandler(storageHandler);
+        LogicHandler logicHandler = new LogicHandler(storageHandler, list);
 
 
         // Load data from hard disk to list
@@ -78,25 +78,28 @@ public class Jessica {
                 Tag tag = getFirstTag(input);
                 switch (tag) {
                     case LIST:
-                        logicHandler.handleList(input, list);
+                        logicHandler.handleList(input);
+                        break;
+                    case FIND:
+                        logicHandler.handleFind(input);
                         break;
                     case MARK:
-                        logicHandler.handleMark(input, list);
+                        logicHandler.handleMark(input);
                         break;
                     case UNMARK:
-                        logicHandler.handleUnmark(input, list);
+                        logicHandler.handleUnmark(input);
                         break;
                     case TODO:
-                        logicHandler.handleToDo(input, list);
+                        logicHandler.handleToDo(input);
                         break;
                     case DEADLINE:
-                        logicHandler.handleDeadline(input, list);
+                        logicHandler.handleDeadline(input);
                         break;
                     case EVENT:
-                        logicHandler.handleEvent(input, list);
+                        logicHandler.handleEvent(input);
                         break;
                     case DELETE:
-                        logicHandler.handleDelete(input, list);
+                        logicHandler.handleDelete(input);
                         break;
                     default:
                         System.out.println("Unknown command, try again");

@@ -10,6 +10,10 @@ public class UI {
         System.out.println("    ____________________________________________________________");
     }
 
+    public static void printItem(String message) {
+        System.out.println("     " + message);
+    }
+
     public static void printArray(String[] items) {
         for (String item : items) {
             System.out.println("     " + item);
