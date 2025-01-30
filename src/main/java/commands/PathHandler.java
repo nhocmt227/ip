@@ -5,21 +5,25 @@ import jessica.Jessica;
 
 import java.io.File;
 import java.net.URISyntaxException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 public class PathHandler {
     public static String findStoragePath() throws JessicaException, URISyntaxException {
-        String path = Jessica.class.getProtectionDomain().getCodeSource().getLocation().toURI().getPath();
-        // Handle the case when current location is inside the project
-        path = path.replace("\\", "/");
-        for (int i = path.length() - 1; i >= 0; i--) {
-            if (path.charAt(i) == '/') {
-                String s = path.substring(i + 1);
-                if (s.equals("ip")) {
-                    return path + "/data/jessica.txt";
-                }
-                path = path.substring(0, i);
-            }
+        String currentPath = Jessica.class.getProtectionDomain().getCodeSource().getLocation().toURI().getPath();
+
+        // Fix the path for Windows
+        if (System.getProperty("os.name").toLowerCase().contains("win") && currentPath.startsWith("/")) {
+            currentPath = currentPath.substring(1);  // Remove leading slash
         }
-        throw new JessicaException("Unknown error in findStoragePath");
+
+        Path path = Paths.get(currentPath);
+        Path parentPath = path.getParent();
+
+        // Construct the storage path and normalize separators
+        String storagePath = parentPath.toString() + "/.data/jessica.txt";
+        storagePath = storagePath.replace("\\", "/");  // Ensure forward slashes for consistency
+
+        return storagePath;
     }
 }

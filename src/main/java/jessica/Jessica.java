@@ -25,8 +25,6 @@ public class Jessica {
         LIST, MARK, UNMARK, TODO, DEADLINE, EVENT, DELETE
     }
 
-
-
     public static void main(String[] args) {
         // get path to storage
         File currentFile = new File("");

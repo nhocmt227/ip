@@ -6,7 +6,7 @@ if not exist ..\..\bin mkdir ..\..\bin
 REM delete output from previous run
 if exist ACTUAL.TXT del ACTUAL.TXT
 
-if exist ..\..\data\jessica.txt del ..\..\data\jessica.txt
+if exist ..\..\.data\jessica.txt del ..\..\.data\jessica.txt
 
 REM compile the code into the bin folder
 javac  -cp ..\..\src\main\java -Xlint:none -d ..\..\bin ..\..\src\main\java\jessica\*.java

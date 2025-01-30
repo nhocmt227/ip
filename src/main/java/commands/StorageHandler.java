@@ -1,6 +1,9 @@
 package commands;
 
 import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -18,12 +21,20 @@ public class StorageHandler {
 
     // Methods to load
     public void loadDiskToMem(List<Task> list) throws IOException, JessicaException {
-        File file = new File(this.filePath);
-        // Check if the file exists
-        if (!file.exists()) {
-            file.createNewFile();
+        Path filePath = Paths.get(this.filePath);
+
+        // Ensure the parent directory (.data) exists
+        Path parentDir = filePath.getParent();
+        if (parentDir != null && !Files.exists(parentDir)) {
+            Files.createDirectories(parentDir);  // Create directories if they don't exist
         }
-        Scanner scanner = new Scanner(file);
+
+        // Create the file if it doesn't exist
+        if (!Files.exists(filePath)) {
+            Files.createFile(filePath);
+        }
+
+        Scanner scanner = new Scanner(filePath.toFile());
         while (scanner.hasNextLine()) {
             String data = scanner.nextLine();
             loadLineToMem(list, data);
