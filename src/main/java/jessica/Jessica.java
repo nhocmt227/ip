@@ -27,15 +27,11 @@ public class Jessica {
 
     public static void main(String[] args) {
         // get path to storage
-        File currentFile = new File("");
         String storagePath = "";
         try {
-            String currentDirPath = currentFile.getCanonicalPath();
             storagePath = PathHandler.findStoragePath();
         } catch (JessicaException e) {
             System.out.println(e.getMessage());
-        } catch (IOException e) {
-            System.out.println("Unknown error: " + e.getMessage());
         } catch (URISyntaxException e) {
             System.out.println(e.getMessage());
             System.out.println("Unknown error in PathHandler");
@@ -62,7 +58,7 @@ public class Jessica {
             return;
         }
 
-        // main logic
+        // Main application logic
         UI.chatbotHello();
         while (true) {
             String input = scanner.nextLine();
@@ -109,7 +105,7 @@ public class Jessica {
         }
         UI.chatbotGoodbye();
 
-        // store data from list to the hard disk
+        // Store data from list to the hard disk
         try {
             storageHandler.storeMemToDisk(list);
         } catch (IOException e) {
