@@ -206,6 +206,28 @@ public class Parser {
     }
 
     /**
+     * Extracts and returns the description from the "find" command input.
+     * This method validates the input format and ensures that a description is provided.
+     *
+     * @param input The user's input command string.
+     * @return The extracted description string.
+     * @throws JessicaException If the input does not start with "find " or if the description is missing.
+     */
+    public static String getFindDescription(String input) throws JessicaException {
+        input = input.strip();  // Remove leading and trailing whitespace
+        if (!input.startsWith("find ")) {
+            throw new JessicaException("Wrong find description, try again");
+        }
+
+        String description = input.substring(5).strip();  // Get everything after "find "
+        if (description.isEmpty()) {
+            throw new JessicaException("No description provided, try again");
+        }
+
+        return description;
+    }
+
+    /**
      * Parses the input string and returns an array of individual components.
      *
      * @param input The user's input command.
