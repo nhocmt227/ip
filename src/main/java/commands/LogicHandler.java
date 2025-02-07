@@ -41,11 +41,11 @@ public class LogicHandler {
      */
     public String handleList(String input) {
         if (input.trim().equals("list")) {
-            UI.prettyPrintList(tasksList);
+            return UI.getPrettyList(tasksList);
         } else {
             String s1 = "Invalid list syntax, try again";
             String s2 = "Usage: list";
-            UI.prettyPrintArray(new String[] {s1, s2});
+            return UI.getPrettyArray(new String[] {s1, s2});
         }
     }
 
@@ -54,7 +54,7 @@ public class LogicHandler {
      *
      * @param input The user's input command.
      */
-    public void handleMark(String input) {
+    public String handleMark(String input) {
         try {
             int index = Parser.getMarkIndex(input);
             Task task = tasksList.get(index - 1);
@@ -62,19 +62,19 @@ public class LogicHandler {
             storageHandler.storeMemToDisk(tasksList);
             String s1 = "Nice! I've marked this task as done:";
             String s2 = "  " + task;
-            UI.prettyPrintArray(new String[] {s1, s2});
+            return UI.getPrettyArray(new String[] {s1, s2});
         } catch (JessicaException e) {
             String s1 = e.getMessage();
             String s2 = "Usage: mark [index]";
-            UI.prettyPrintArray(new String[] {s1, s2});
+            return UI.getPrettyArray(new String[] {s1, s2});
         } catch (IndexOutOfBoundsException e) {
             String s1 = "Index out of bound, try again";
             String s2 = "Usage: mark [index]";
-            UI.prettyPrintArray(new String[] {s1, s2});
+            return UI.getPrettyArray(new String[] {s1, s2});
         } catch (IOException e) {
             String s1 = e.getMessage();
             String s2 = "Error when store data to file";
-            UI.prettyPrintArray(new String[] {s1, s2});
+            return UI.getPrettyArray(new String[] {s1, s2});
         }
     }
 
@@ -83,7 +83,7 @@ public class LogicHandler {
      *
      * @param input The user's input command.
      */
-    public void handleUnmark(String input) {
+    public String handleUnmark(String input) {
         try {
             int index = Parser.getUnmarkIndex(input);
             Task task = tasksList.get(index - 1);
@@ -91,19 +91,19 @@ public class LogicHandler {
             storageHandler.storeMemToDisk(tasksList);
             String s1 = "OK, I've marked this task as not done yet:";
             String s2 = "  " + task;
-            UI.prettyPrintArray(new String[] {s1, s2});
+            return UI.getPrettyArray(new String[] {s1, s2});
         } catch (JessicaException e) {
             String s1 = e.getMessage();
             String s2 = "Usage: unmark [index]";
-            UI.prettyPrintArray(new String[] {s1, s2});
+            return UI.getPrettyArray(new String[] {s1, s2});
         } catch (IndexOutOfBoundsException e) {
             String s1 = "Index out of bound, try again";
             String s2 = "Usage: unmark [index]";
-            UI.prettyPrintArray(new String[] {s1, s2});
+            return UI.getPrettyArray(new String[] {s1, s2});
         } catch (IOException e) {
             String s1 = e.getMessage();
             String s2 = "Error when store data to file";
-            UI.prettyPrintArray(new String[] {s1, s2});
+            return UI.getPrettyArray(new String[] {s1, s2});
         }
     }
 
@@ -112,21 +112,21 @@ public class LogicHandler {
      *
      * @param input The user's input command.
      */
-    public void handleToDo(String input) {
+    public String handleToDo(String input) {
         try {
             String description = Parser.getToDoDescription(input);
             Task newTask = new ToDo(description);
             tasksList.add(newTask);
             storageHandler.storeTaskToDisk(newTask);
-            UI.printAddedTask(newTask, tasksList);
+            return UI.getAddedTask(newTask, tasksList);
         } catch (JessicaException e) {
             String s1 = e.getMessage();
             String s2 = "Usage: todo [description]";
-            UI.prettyPrintArray(new String[] {s1, s2});
+            return UI.getPrettyArray(new String[] {s1, s2});
         } catch (IOException e) {
             String s1 = e.getMessage();
             String s2 = "Error when store data to file";
-            UI.prettyPrintArray(new String[] {s1, s2});
+            return UI.getPrettyArray(new String[] {s1, s2});
         }
     }
 
@@ -135,7 +135,7 @@ public class LogicHandler {
      *
      * @param input The user's input command.
      */
-    public void handleDeadline(String input) {
+    public String handleDeadline(String input) {
         try {
             String description = Parser.getDeadlineDescription(input);
             String deadline = Parser.getDeadlineDate(input);
@@ -143,20 +143,20 @@ public class LogicHandler {
             Task newTask = new Deadline(description, ld);
             tasksList.add(newTask);
             storageHandler.storeTaskToDisk(newTask);
-            UI.printAddedTask(newTask, tasksList);
+            return UI.getAddedTask(newTask, tasksList);
         } catch (JessicaException e) {
             String s1 = e.getMessage();
             String s2 = "Usage: deadline [description] /by [end date]";
-            UI.prettyPrintArray(new String[] {s1, s2});
+            return UI.getPrettyArray(new String[] {s1, s2});
         } catch (DateTimeParseException e) {
             String s1 = e.getMessage();
             String s2 = "Usage: deadline [description] /by [end date]";
             String s3 = "Date format: yyyy-mm-dd";
-            UI.prettyPrintArray(new String[] {s1, s2, s3});
+            return UI.getPrettyArray(new String[] {s1, s2, s3});
         } catch (IOException e) {
             String s1 = e.getMessage();
             String s2 = "Error when store data to file";
-            UI.prettyPrintArray(new String[] {s1, s2});
+            return UI.getPrettyArray(new String[] {s1, s2});
         }
     }
 
@@ -165,7 +165,7 @@ public class LogicHandler {
      *
      * @param input The user's input command.
      */
-    public void handleEvent(String input) {
+    public String handleEvent(String input) {
         try {
             String description = Parser.getEventDescription(input);
             String begin = Parser.getEventBeginDate(input);
@@ -173,20 +173,20 @@ public class LogicHandler {
             Task newTask = new Event(description, Converter.stringToDate(begin), Converter.stringToDate(end));
             tasksList.add(newTask);
             storageHandler.storeTaskToDisk(newTask);
-            UI.printAddedTask(newTask, tasksList);
+            return UI.getAddedTask(newTask, tasksList);
         } catch (JessicaException e) {
             String s1 = e.getMessage();
             String s2 = "Usage: event [description] /from [begin time] /to [end time]";
-            UI.prettyPrintArray(new String[] {s1, s2});
+            return UI.getPrettyArray(new String[] {s1, s2});
         } catch (DateTimeParseException e) {
             String s1 = e.getMessage();
             String s2 = "Usage: deadline [description] /by [end date]";
             String s3 = "Date format: yyyy-mm-dd";
-            UI.prettyPrintArray(new String[] {s1, s2, s3});
+            return UI.getPrettyArray(new String[] {s1, s2, s3});
         } catch (IOException e) {
             String s1 = e.getMessage();
             String s2 = "Error when store data to file";
-            UI.prettyPrintArray(new String[] {s1, s2});
+            return UI.getPrettyArray(new String[] {s1, s2});
         }
     }
 
@@ -195,7 +195,7 @@ public class LogicHandler {
      *
      * @param input The user's input command.
      */
-    public void handleDelete(String input) {
+    public String handleDelete(String input) {
         try {
             int index = Parser.getDeleteIndex(input);
             Task task = tasksList.get(index - 1);
@@ -204,19 +204,19 @@ public class LogicHandler {
             String s1 = "Noted. I've removed this task:";
             String s2 = task.toString();
             String s3 = "Now you have " + UI.getTaskCountMessage(tasksList) + " in the list.";
-            UI.prettyPrintArray(new String[] {s1, s2, s3});
+            return UI.getPrettyArray(new String[] {s1, s2, s3});
         } catch (JessicaException e) {
             String s1 = e.getMessage();
             String s2 = "Usage: delete [index]";
-            UI.prettyPrintArray(new String[] {s1, s2});
+            return UI.getPrettyArray(new String[] {s1, s2});
         } catch (IndexOutOfBoundsException e) {
             String s1 = "Index out of bound, try again";
             String s2 = "Usage: delete [index]";
-            UI.prettyPrintArray(new String[] {s1, s2});
+            return UI.getPrettyArray(new String[] {s1, s2});
         } catch (IOException e) {
             String s1 = e.getMessage();
             String s2 = "Error when store data to file";
-            UI.prettyPrintArray(new String[] {s1, s2});
+            return UI.getPrettyArray(new String[] {s1, s2});
         }
     }
 
@@ -225,7 +225,7 @@ public class LogicHandler {
      *
      * @param input The user's input command.
      */
-    public void handleFind(String input) {
+    public String handleFind(String input) {
         try {
             String description = Parser.getFindDescription(input);
             List<Task> listToFind = new ArrayList<>();
@@ -235,12 +235,11 @@ public class LogicHandler {
                     listToFind.add(t);
                 }
             }
-            UI.prettyPrintList(listToFind);
-            System.out.println("handleFind executed: " + input);
+            return UI.getPrettyList(listToFind);
         } catch (JessicaException e) {
             String s1 = e.getMessage();
             String s2 = "Usage: find [message]";
-            UI.prettyPrintArray(new String[] {s1, s2});
+            return UI.getPrettyArray(new String[] {s1, s2});
         }
 
     }

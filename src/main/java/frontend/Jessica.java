@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 
 import commands.LogicHandler;
 import commands.Parser;
@@ -13,7 +12,6 @@ import commands.StorageHandler;
 import commands.UI;
 import exception.JessicaException;
 import tasks.Task;
-
 
 /**
  * The main class for the Jessica chatbot application.
@@ -35,16 +33,18 @@ public class Jessica {
         LIST, MARK, UNMARK, TODO, DEADLINE, EVENT, DELETE, FIND
     }
 
+    /**
+     * Constructor that initializes the chatbot and handles storage.
+     */
     public Jessica() {
-        // get path to storage
+        // Get path to storage
         String storagePath = "";
         try {
             storagePath = PathHandler.findStoragePath();
         } catch (JessicaException e) {
-            System.out.println(e.getMessage());
+            System.out.println("Error finding storage path: " + e.getMessage());
         } catch (URISyntaxException e) {
-            System.out.println(e.getMessage());
-            System.out.println("Unknown error in PathHandler");
+            System.out.println("Unknown error in PathHandler: " + e.getMessage());
         }
 
         // Initialization
@@ -55,17 +55,14 @@ public class Jessica {
         try {
             storageHandler.loadDiskToMem(list);
         } catch (JessicaException e) {
-            String s1 = "Error: " + e;
-            String s2 = "The storage file has been corrupted";
-            UI.prettyPrintArray(new String[] {s1, s2});
-            return;
+            String s1 = "Error: " + e.getMessage();
+            String s2 = "The storage file has been corrupted.";
+            UI.prettyPrintArray(new String[] { s1, s2 });
         } catch (Exception e) {
-            String s1 = "Error: " + e;
-            String s2 = "Error in storage handling";
-            UI.prettyPrintArray(new String[] {s1, s2});
-            return;
+            String s1 = "Error: " + e.getMessage();
+            String s2 = "Error in storage handling.";
+            UI.prettyPrintArray(new String[] { s1, s2 });
         }
-
     }
 
     /**
@@ -73,118 +70,65 @@ public class Jessica {
      */
     public String getResponse(String input) {
 
-
-
-        // Store data from list to the hard disk
-        try {
-            storageHandler.storeMemToDisk(list);
-        } catch (IOException e) {
-            System.out.println("Unable to save to storage");
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
-    }
-
-    /**
-     * The main method of the Jessica application.
-     * It initializes storage, loads tasks, and continuously handles user input until the "bye" command is issued.
-     *
-     * @param args Command-line arguments (not used in this application).
-     */
-    public static void main(String[] args) {
-        // get path to storage
-        String storagePath = "";
-        try {
-            storagePath = PathHandler.findStoragePath();
-        } catch (JessicaException e) {
-            System.out.println(e.getMessage());
-        } catch (URISyntaxException e) {
-            System.out.println(e.getMessage());
-            System.out.println("Unknown error in PathHandler");
+        if (Parser.detectBye(input)) { // Terminate the program
+            return UI.getChatbotGoodbye();
         }
 
-        // Initialization
-        StorageHandler storageHandler = new StorageHandler(storagePath);
-        Scanner scanner = new Scanner(System.in);
-        LogicHandler logicHandler = new LogicHandler(storageHandler, list);
-
-
-        // Load data from hard disk to list
-        try {
-            storageHandler.loadDiskToMem(list);
-        } catch (JessicaException e) {
-            String s1 = "Error: " + e;
-            String s2 = "The storage file has been corrupted";
-            UI.prettyPrintArray(new String[] {s1, s2});
-            return;
-        } catch (Exception e) {
-            String s1 = "Error: " + e;
-            String s2 = "Error in storage handling";
-            UI.prettyPrintArray(new String[] {s1, s2});
-            return;
+        if (input.trim().isEmpty()) { // Empty input
+            return UI.getPrettyArray(new String[] { "Cannot add an empty task, try again" });
         }
 
-        // Main application logic
-        UI.chatbotHello();
-        while (true) {
-            String input = scanner.nextLine();
-            if (Parser.detectBye(input)) { // Terminate the program
-                break;
+        try {
+            String output = "";
+            Tag tag = getFirstTag(input);
+
+            // Process commands based on tag
+            switch (tag) {
+                case LIST:
+                    output = logicHandler.handleList(input);
+                    break;
+                case FIND:
+                    output = logicHandler.handleFind(input);
+                    break;
+                case MARK:
+                    output = logicHandler.handleMark(input);
+                    break;
+                case UNMARK:
+                    output = logicHandler.handleUnmark(input);
+                    break;
+                case TODO:
+                    output = logicHandler.handleToDo(input);
+                    break;
+                case DEADLINE:
+                    output = logicHandler.handleDeadline(input);
+                    break;
+                case EVENT:
+                    output = logicHandler.handleEvent(input);
+                    break;
+                case DELETE:
+                    output = logicHandler.handleDelete(input);
+                    break;
+                default:
+                    output = "Unknown command, try again.";
+                    break;
             }
-            if (input.trim().isEmpty()) { // Empty input
-                String s = "Cannot add an empty task, try again";
-                UI.prettyPrintArray(new String[] {s});
-                continue;
-            }
+
+            // Save tasks to storage
             try {
-                Tag tag = getFirstTag(input);
-                switch (tag) {
-                    case LIST:
-                        logicHandler.handleList(input);
-                        break;
-                    case FIND:
-                        logicHandler.handleFind(input);
-                        break;
-                    case MARK:
-                        logicHandler.handleMark(input);
-                        break;
-                    case UNMARK:
-                        logicHandler.handleUnmark(input);
-                        break;
-                    case TODO:
-                        logicHandler.handleToDo(input);
-                        break;
-                    case DEADLINE:
-                        logicHandler.handleDeadline(input);
-                        break;
-                    case EVENT:
-                        logicHandler.handleEvent(input);
-                        break;
-                    case DELETE:
-                        logicHandler.handleDelete(input);
-                        break;
-                    default:
-                        System.out.println("Unknown command, try again");
-                        break;
-                }
-            } catch (IllegalArgumentException e) { // Unknown tag, try again
-                String s1 = "Please specify the type of task";
-                UI.prettyPrintArray(new String[] {s1});
+                storageHandler.storeMemToDisk(list);
+            } catch (IOException e) {
+                output = "Unable to save to storage.";
+            } catch (Exception e) {
+                output = "Error saving to storage: " + e.getMessage();
             }
-        }
-        UI.chatbotGoodbye();
 
-        // Store data from list to the hard disk
-        try {
-            storageHandler.storeMemToDisk(list);
-        } catch (IOException e) {
-            System.out.println("Unable to save to storage");
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
+            return output;
+
+        } catch (IllegalArgumentException e) {
+            // Unknown tag, prompt user to try again
+            return UI.getPrettyArray(new String[] { "Please specify the type of task." });
         }
     }
-
-
 
     /**
      * Parses the user's input to determine the command type.
@@ -195,10 +139,19 @@ public class Jessica {
      */
     public static Tag getFirstTag(String input) {
         input = input.trim();
+
+        // Ensure input is not empty
+        if (input.isEmpty()) {
+            throw new IllegalArgumentException("Input cannot be empty.");
+        }
+
+        // Extract the first word as the tag
         String tagStr = input.split("\\s+", 2)[0];
-        return Jessica.Tag.valueOf(tagStr.toUpperCase());
+
+        try {
+            return Tag.valueOf(tagStr.toUpperCase());
+        } catch (IllegalArgumentException e) {
+            throw new IllegalArgumentException("Invalid command: " + tagStr);
+        }
     }
-
 }
-
-

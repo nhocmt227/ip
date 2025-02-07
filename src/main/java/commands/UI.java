@@ -17,24 +17,22 @@ public class UI {
     public static String getArray(String[] items) {
         String result = "";
         for (String item : items) {
-            String temp = "     " + item + "\n";
+            String temp = "  " + item + "\n";
             result += temp;
         }
         return result;
     }
 
     public static String getPrettyArray(String[] items) {
-        return getPrettyBorder() + getArray(items) + getPrettyBorder();
+        return getArray(items);
     }
 
     public static String getPrettyList(List<?> list) {
         String result = "";
-        result += getPrettyBorder();
         for (int i = 0; i < list.size(); i++) {
-            String temp = "     " + (i + 1) + ". " + list.get(i).toString() + "\n";
+            String temp = "  " + (i + 1) + ". " + list.get(i).toString() + "\n";
             result += temp;
         }
-        result += getPrettyBorder();
         return result;
     }
 
