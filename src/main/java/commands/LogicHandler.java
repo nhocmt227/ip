@@ -39,7 +39,7 @@ public class LogicHandler {
      *
      * @param input The user's input command.
      */
-    public void handleList(String input) {
+    public String handleList(String input) {
         if (input.trim().equals("list")) {
             UI.prettyPrintList(tasksList);
         } else {

@@ -10,6 +10,80 @@ import tasks.Task;
  */
 public class UI {
 
+    public static String getPrettyBorder() {
+        return "    ____________________________________________________________\n";
+    }
+
+    public static String getArray(String[] items) {
+        String result = "";
+        for (String item : items) {
+            String temp = "     " + item + "\n";
+            result += temp;
+        }
+        return result;
+    }
+
+    public static String getPrettyArray(String[] items) {
+        return getPrettyBorder() + getArray(items) + getPrettyBorder();
+    }
+
+    public static String getPrettyList(List<?> list) {
+        String result = "";
+        result += getPrettyBorder();
+        for (int i = 0; i < list.size(); i++) {
+            String temp = "     " + (i + 1) + ". " + list.get(i).toString() + "\n";
+            result += temp;
+        }
+        result += getPrettyBorder();
+        return result;
+    }
+
+    public static String getAddedTask(Task task, List<?> list) {
+        String s1 = "Got it. I've added this task:\n";
+        String s2 = "  " + task.toString() + "\n";
+        String s3 = "Now you have " + getTaskCountMessage(list) + " in the list." + "\n";
+        return getPrettyArray(new String[] {s1, s2, s3});
+    }
+
+    public static String getPrettyName() {
+        String s = "      _               _\n"
+                + "     | | ___  ___ ___(_) ___ __ _\n"
+                + "  _  | |/ _ \\/ __/ __| |/ __/ _` |\n"
+                + " | |_| |  __/\\__ \\__ \\ | (_| (_| |\n"
+                + "  \\___/ \\___||___/___/_|\\___\\__,_|\n";
+        return s;
+    }
+
+    /**
+     * Prints a greeting message when the chatbot starts.
+     */
+    public static String getChatbotHello() {
+        String result = UI.getPrettyName();
+        String s1 = "Hello! I'm jessica.Jessica";
+        String s2 = "What can I do for you?";
+        result += getPrettyArray(new String[] {s1, s2});
+        return result;
+    }
+
+    /**
+     * Prints a farewell message when the chatbot shuts down.
+     */
+    public static String getChatbotGoodbye() {
+        String s1 = "Bye. Hope to see you again soon!";
+        return getPrettyArray(new String[] {s1});
+    }
+
+
+
+
+
+
+
+
+
+
+
+
     /**
      * Prints a horizontal border line.
      */
