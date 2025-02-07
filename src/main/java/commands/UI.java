@@ -1,7 +1,8 @@
 package commands;
 
-import tasks.Task;
 import java.util.List;
+
+import tasks.Task;
 
 /**
  * Handles user interface operations such as printing messages, task lists, and decorated output.
@@ -68,11 +69,11 @@ public class UI {
      * Prints the ASCII art name of the chatbot.
      */
     public static void printPrettyName() {
-        String s = "      _               _\n" +
-                "     | | ___  ___ ___(_) ___ __ _\n" +
-                "  _  | |/ _ \\/ __/ __| |/ __/ _` |\n" +
-                " | |_| |  __/\\__ \\__ \\ | (_| (_| |\n" +
-                "  \\___/ \\___||___/___/_|\\___\\__,_|\n";
+        String s = "      _               _\n"
+                + "     | | ___  ___ ___(_) ___ __ _\n"
+                + "  _  | |/ _ \\/ __/ __| |/ __/ _` |\n"
+                + " | |_| |  __/\\__ \\__ \\ | (_| (_| |\n"
+                + "  \\___/ \\___||___/___/_|\\___\\__,_|\n";
         System.out.println(s);
     }
 

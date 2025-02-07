@@ -1,15 +1,17 @@
 package commands;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+import java.util.Locale;
+
 import exception.JessicaException;
 import tasks.Deadline;
 import tasks.Event;
 import tasks.Task;
 import tasks.ToDo;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
-import java.util.Locale;
+
 
 /**
  * Handles conversions between strings, dates, and tasks for storage and display purposes.
@@ -65,23 +67,23 @@ public class Converter {
         String message = parts[2];
 
         switch (taskType) {
-            case 'T':// To-Do
-                return new ToDo(message, isDone);
-            case 'D': // Deadline
-                if (parts.length < 4) {
-                    throw new IllegalArgumentException("Invalid deadline format: " + line);
-                }
-                String deadline = parts[3];
-                return new Deadline(message, Converter.stringToDate(deadline), isDone);
-            case 'E': // Event
-                if (parts.length < 5) {
-                    throw new IllegalArgumentException("Invalid event format: " + line);
-                }
-                String begin = parts[3];
-                String end = parts[4];
-                return new Event(message, Converter.stringToDate(begin), Converter.stringToDate(end), isDone);
-            default:
-                throw new IllegalArgumentException("Unknown task type: " + taskType);
+        case 'T':// To-Do
+            return new ToDo(message, isDone);
+        case 'D': // Deadline
+            if (parts.length < 4) {
+                throw new IllegalArgumentException("Invalid deadline format: " + line);
+            }
+            String deadline = parts[3];
+            return new Deadline(message, Converter.stringToDate(deadline), isDone);
+        case 'E': // Event
+            if (parts.length < 5) {
+                throw new IllegalArgumentException("Invalid event format: " + line);
+            }
+            String begin = parts[3];
+            String end = parts[4];
+            return new Event(message, Converter.stringToDate(begin), Converter.stringToDate(end), isDone);
+        default:
+            throw new IllegalArgumentException("Unknown task type: " + taskType);
         }
     }
 
@@ -90,7 +92,8 @@ public class Converter {
      *
      * @param task The task to convert.
      * @return The formatted data line representing the task.
-     * @throws IllegalArgumentException If the task contains invalid characters (e.g., the '|' character) or if the task type is unknown.
+     * @throws IllegalArgumentException If the task contains invalid characters (e.g., the '|' character)
+     *      or if the task type is unknown.
      */
     public static String taskToDataLine(Task task) {
         String s = "";
@@ -115,17 +118,17 @@ public class Converter {
             if (task.getDescription().contains("|")) {
                 throw new IllegalArgumentException("message cannot contain |");
             }
-            if (((Event) task).getBegin().toString().contains("|")) {
+            if (((Event) task).getStartDate().toString().contains("|")) {
                 throw new IllegalArgumentException("message cannot contain |");
             }
-            if (((Event) task).getEnd().toString().contains("|")) {
+            if (((Event) task).getEndDate().toString().contains("|")) {
                 throw new IllegalArgumentException("message cannot contain |");
             }
             s += "E|";
             s += task.getDone() ? "1|" : "0|";
             s += task.getDescription() + "|";
-            s += ((Event) task).getBegin() + "|";
-            s += ((Event) task).getEnd();
+            s += ((Event) task).getStartDate() + "|";
+            s += ((Event) task).getEndDate();
             s += "\n";
         } else {
             throw new IllegalArgumentException("Unknown error");

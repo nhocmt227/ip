@@ -10,7 +10,12 @@ import tasks.ToDo;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertInstanceOf;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
  * Warning:
@@ -89,8 +94,8 @@ public class ConverterTest {
         Task task = Converter.dataLineToTask("E|1|Company retreat|2024-08-10|2024-08-12");
         assertInstanceOf(Event.class, task);
         assertEquals("Company retreat", task.getDescription());
-        assertEquals(LocalDate.of(2024, 8, 10), ((Event) task).getBegin());
-        assertEquals(LocalDate.of(2024, 8, 12), ((Event) task).getEnd());
+        assertEquals(LocalDate.of(2024, 8, 10), ((Event) task).getStartDate());
+        assertEquals(LocalDate.of(2024, 8, 12), ((Event) task).getEndDate());
         assertTrue(task.getDone());
     }
 
@@ -102,8 +107,8 @@ public class ConverterTest {
     @Test
     public void dataLineToTask_invalidFormat_exceptionThrown() {
         assertThrows(IllegalArgumentException.class, () -> Converter.dataLineToTask("T|1")); // Missing description
-        assertThrows(IllegalArgumentException.class, () -> Converter.dataLineToTask("D|0|Submit report")); // Missing deadline
-        assertThrows(IllegalArgumentException.class, () -> Converter.dataLineToTask("E|1|Company retreat|2024-08-10")); // Missing end date
+        assertThrows(IllegalArgumentException.class, () -> Converter.dataLineToTask("D|0|Submit report"));
+        assertThrows(IllegalArgumentException.class, () -> Converter.dataLineToTask("E|1|Company retreat|2024-08-10"));
     }
 
     @Test
@@ -113,7 +118,7 @@ public class ConverterTest {
         assertThrows(Exception.class, () -> Converter.dataLineToTask("|T |")); // Invalid
         assertThrows(Exception.class, () -> Converter.dataLineToTask("TDE")); // Invalid
         assertThrows(Exception.class, () -> Converter.dataLineToTask("1|T|October|")); // Invalid
-        assertThrows(Exception.class, () -> Converter.dataLineToTask("E|1||Company retreat|2024-08-10|2024-09-11")); // Invalid
+        assertThrows(Exception.class, () -> Converter.dataLineToTask("E|1||Company retreat|2024-08-10|2024-09-11"));
         assertThrows(Exception.class, () -> Converter.dataLineToTask("|1|Company")); // Invalid
     }
 

@@ -1,12 +1,11 @@
 package commands;
 
-import exception.JessicaException;
-import jessica.Jessica;
-
-import java.io.File;
 import java.net.URISyntaxException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+
+import exception.JessicaException;
+import jessica.Jessica;
 
 /**
  * Handles operations related to determining the storage path for the application.
@@ -28,7 +27,7 @@ public class PathHandler {
 
         // Fix the path for Windows
         if (System.getProperty("os.name").toLowerCase().contains("win") && currentPath.startsWith("/")) {
-            currentPath = currentPath.substring(1);  // Remove leading slash
+            currentPath = currentPath.substring(1); // Remove leading slash
         }
 
         Path path = Paths.get(currentPath);
@@ -36,7 +35,7 @@ public class PathHandler {
 
         // Construct the storage path and normalize separators
         String storagePath = parentPath.toString() + "/.data/jessica.txt";
-        storagePath = storagePath.replace("\\", "/");  // Ensure forward slashes for consistency
+        storagePath = storagePath.replace("\\", "/"); // Ensure forward slashes for consistency
 
         return storagePath;
     }

@@ -1,6 +1,8 @@
 package commands;
 
-import java.io.*;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -42,7 +44,7 @@ public class StorageHandler {
         // Ensure the parent directory (.data) exists
         Path parentDir = filePath.getParent();
         if (parentDir != null && !Files.exists(parentDir)) {
-            Files.createDirectories(parentDir);  // Create directories if they don't exist
+            Files.createDirectories(parentDir); // Create directories if they don't exist
         }
 
         // Create the file if it doesn't exist

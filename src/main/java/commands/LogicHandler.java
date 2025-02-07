@@ -1,17 +1,16 @@
 package commands;
 
+import java.io.IOException;
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
+import java.util.ArrayList;
+import java.util.List;
+
 import exception.JessicaException;
 import tasks.Deadline;
 import tasks.Event;
 import tasks.Task;
 import tasks.ToDo;
-
-import java.io.IOException;
-import java.time.format.DateTimeParseException;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.time.LocalDate;
 
 /**
  * Handles various task-related operations, such as adding, deleting, marking tasks,
@@ -22,7 +21,7 @@ import java.time.LocalDate;
 public class LogicHandler {
 
     private final StorageHandler storageHandler;
-    private final List<Task> list;
+    private final List<Task> tasksList;
 
     /**
      * Constructor to initialize LogicHandler with a storage handler.
@@ -32,7 +31,7 @@ public class LogicHandler {
      */
     public LogicHandler(StorageHandler storageHandler, List<Task> list) {
         this.storageHandler = storageHandler;
-        this.list = list;
+        this.tasksList = list;
     }
 
     /**
@@ -42,7 +41,7 @@ public class LogicHandler {
      */
     public void handleList(String input) {
         if (input.trim().equals("list")) {
-            UI.prettyPrintList(list);
+            UI.prettyPrintList(tasksList);
         } else {
             String s1 = "Invalid list syntax, try again";
             String s2 = "Usage: list";
@@ -58,9 +57,9 @@ public class LogicHandler {
     public void handleMark(String input) {
         try {
             int index = Parser.getMarkIndex(input);
-            Task task = list.get(index - 1);
+            Task task = tasksList.get(index - 1);
             task.setDone(true);
-            storageHandler.storeMemToDisk(list);
+            storageHandler.storeMemToDisk(tasksList);
             String s1 = "Nice! I've marked this task as done:";
             String s2 = "  " + task;
             UI.prettyPrintArray(new String[] {s1, s2});
@@ -87,9 +86,9 @@ public class LogicHandler {
     public void handleUnmark(String input) {
         try {
             int index = Parser.getUnmarkIndex(input);
-            Task task = list.get(index - 1);
+            Task task = tasksList.get(index - 1);
             task.setDone(false);
-            storageHandler.storeMemToDisk(list);
+            storageHandler.storeMemToDisk(tasksList);
             String s1 = "OK, I've marked this task as not done yet:";
             String s2 = "  " + task;
             UI.prettyPrintArray(new String[] {s1, s2});
@@ -117,9 +116,9 @@ public class LogicHandler {
         try {
             String description = Parser.getToDoDescription(input);
             Task newTask = new ToDo(description);
-            list.add(newTask);
+            tasksList.add(newTask);
             storageHandler.storeTaskToDisk(newTask);
-            UI.printAddedTask(newTask, list);
+            UI.printAddedTask(newTask, tasksList);
         } catch (JessicaException e) {
             String s1 = e.getMessage();
             String s2 = "Usage: todo [description]";
@@ -142,9 +141,9 @@ public class LogicHandler {
             String deadline = Parser.getDeadlineDate(input);
             LocalDate ld = Converter.stringToDate(deadline);
             Task newTask = new Deadline(description, ld);
-            list.add(newTask);
+            tasksList.add(newTask);
             storageHandler.storeTaskToDisk(newTask);
-            UI.printAddedTask(newTask, list);
+            UI.printAddedTask(newTask, tasksList);
         } catch (JessicaException e) {
             String s1 = e.getMessage();
             String s2 = "Usage: deadline [description] /by [end date]";
@@ -172,9 +171,9 @@ public class LogicHandler {
             String begin = Parser.getEventBeginDate(input);
             String end = Parser.getEventEndDate(input);
             Task newTask = new Event(description, Converter.stringToDate(begin), Converter.stringToDate(end));
-            list.add(newTask);
+            tasksList.add(newTask);
             storageHandler.storeTaskToDisk(newTask);
-            UI.printAddedTask(newTask, list);
+            UI.printAddedTask(newTask, tasksList);
         } catch (JessicaException e) {
             String s1 = e.getMessage();
             String s2 = "Usage: event [description] /from [begin time] /to [end time]";
@@ -199,12 +198,12 @@ public class LogicHandler {
     public void handleDelete(String input) {
         try {
             int index = Parser.getDeleteIndex(input);
-            Task task = list.get(index - 1);
-            list.remove(index - 1);
-            storageHandler.storeMemToDisk(list);
+            Task task = tasksList.get(index - 1);
+            tasksList.remove(index - 1);
+            storageHandler.storeMemToDisk(tasksList);
             String s1 = "Noted. I've removed this task:";
             String s2 = task.toString();
-            String s3 = "Now you have " + UI.getTaskCountMessage(list) + " in the list.";
+            String s3 = "Now you have " + UI.getTaskCountMessage(tasksList) + " in the list.";
             UI.prettyPrintArray(new String[] {s1, s2, s3});
         } catch (JessicaException e) {
             String s1 = e.getMessage();
@@ -230,9 +229,8 @@ public class LogicHandler {
         try {
             String description = Parser.getFindDescription(input);
             List<Task> listToFind = new ArrayList<>();
-            for (int i = 0; i < this.list.size(); i++) {
-                Task t = this.list.get(i);
-                String s = t.toString();
+            for (int i = 0; i < this.tasksList.size(); i++) {
+                Task t = this.tasksList.get(i);
                 if (t.toString().contains(description)) {
                     listToFind.add(t);
                 }

@@ -2,11 +2,6 @@ package commands;
 
 import exception.JessicaException;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
-import java.util.Locale;
-
 /**
  * Handles parsing of user input for various task commands.
  * Provides methods to extract and validate command parameters such as task descriptions and indices.
@@ -214,12 +209,12 @@ public class Parser {
      * @throws JessicaException If the input does not start with "find " or if the description is missing.
      */
     public static String getFindDescription(String input) throws JessicaException {
-        input = input.strip();  // Remove leading and trailing whitespace
+        input = input.strip(); // Remove leading and trailing whitespace
         if (!input.startsWith("find ")) {
             throw new JessicaException("Wrong find description, try again");
         }
 
-        String description = input.substring(5).strip();  // Get everything after "find "
+        String description = input.substring(5).strip(); // Get everything after "find "
         if (description.isEmpty()) {
             throw new JessicaException("No description provided, try again");
         }
@@ -233,7 +228,7 @@ public class Parser {
      * @param input The user's input command.
      * @return An array of strings containing the parsed components.
      */
-    public static String[] parse(String input) {
+    public static String[] parseInput(String input) {
         /*
          * This method parses all the tag in that input
          * Example use: input = "mark 1  2"
@@ -241,8 +236,7 @@ public class Parser {
          * */
         input = input.trim();
         // "\\s+" is a regular expression for one or more spaces
-        String[] parts = input.split("\\s+");
-        return parts;
+        return input.split("\\s+");
     }
 
     /**

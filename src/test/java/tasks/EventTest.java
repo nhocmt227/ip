@@ -1,13 +1,18 @@
 package tasks;
 
+import java.time.LocalDate;
 
 import commands.Converter;
 import exception.JessicaException;
+
 import org.junit.jupiter.api.Test;
 
-import java.time.LocalDate;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import static org.junit.jupiter.api.Assertions.*;
+
 
 /**
  * Warning:
@@ -60,7 +65,7 @@ public class EventTest {
     public void event_getBeginDate() throws JessicaException {
         LocalDate startDate = LocalDate.of(2024, 10, 15);
         Event event = new Event("Science Fair", startDate, LocalDate.of(2024, 10, 17));
-        assertEquals(startDate, event.getBegin());
+        assertEquals(startDate, event.getStartDate());
     }
 
     // ✅ Test getting event end date
@@ -68,14 +73,13 @@ public class EventTest {
     public void event_getEndDate() throws JessicaException {
         LocalDate endDate = LocalDate.of(2024, 11, 20);
         Event event = new Event("Business Summit", LocalDate.of(2024, 11, 18), endDate);
-        assertEquals(endDate, event.getEnd());
+        assertEquals(endDate, event.getEndDate());
     }
 
     // ✅ Test invalid date range (start date is after end date → should throw an exception)
     @Test
     public void event_invalidDateRange_exceptionThrown() {
-        assertThrows(JessicaException.class,
-                () -> new Event("Workshop",
+        assertThrows(JessicaException.class, () -> new Event("Workshop",
                         LocalDate.of(2024, 6, 5),
                         LocalDate.of(2024, 6, 3)));
     }

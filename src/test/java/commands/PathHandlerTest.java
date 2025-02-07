@@ -1,16 +1,12 @@
 package commands;
 
 import exception.JessicaException;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
-import java.io.IOException;
 import java.net.URISyntaxException;
-import java.nio.file.Files;
-import java.nio.file.Path;
+
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 
 /**
  * Warning:
@@ -21,7 +17,8 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class PathHandlerTest {
 
-    private static final String CORRECT_PATH = "C:/Users/phong/Documents/Local Computer/NUS/Y2S2/CS2103T/Individual Project/ip/build/classes/java/.data/jessica.txt";
+    private static final String CORRECT_PATH = "C:/Users/phong/Documents/Local Computer/NUS/"
+            + "Y2S2/CS2103T/Individual Project/ip/build/classes/java/.data/jessica.txt";
 
     // ✅ Test valid "ip" directory at the end
     @Test
