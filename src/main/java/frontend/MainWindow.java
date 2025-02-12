@@ -1,5 +1,6 @@
 package frontend;
 
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -48,21 +49,25 @@ public class MainWindow extends AnchorPane {
     @FXML
     private void handleUserInput() {
         String input = userInput.getText();
+        if (input.trim().equals("bye")) {
+            exitProgram();
+        }
         String response = jessica.getResponse(input);
         System.out.println(response);
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
                 DialogBox.getDukeDialog(response, dukeImage)
         );
-        if (response.equals(BYE_MESSAGE)) {
-            try {
-                TimeUnit.MILLISECONDS.sleep(500);
-            } catch (InterruptedException e) {
-                System.out.println(e.getMessage());
-            }
-            // code to exit the program
-            System.exit(0);
-        }
         userInput.clear();
+    }
+
+    private void exitProgram() {
+        try {
+            TimeUnit.MILLISECONDS.sleep(200);
+        } catch (InterruptedException e) {
+            System.out.println(e.getMessage());
+        }
+        // code to exit the program
+        Platform.exit();
     }
 }

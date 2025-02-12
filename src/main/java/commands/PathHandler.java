@@ -5,7 +5,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 
 import exception.JessicaException;
-import jessica.Jessica;
+import frontend.Jessica;
 
 /**
  * Handles operations related to determining the storage path for the application.

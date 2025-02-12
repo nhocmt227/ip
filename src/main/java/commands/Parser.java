@@ -222,14 +222,4 @@ public class Parser {
         return description;
     }
 
-    /**
-     * Detects if the input command is the "bye" command.
-     *
-     * @param input The user's input command.
-     * @return True if the command is "bye", otherwise false.
-     */
-    public static boolean detectBye(String input) {
-        return input.trim().equals("bye");
-    }
-
 }

@@ -70,10 +70,6 @@ public class Jessica {
      */
     public String getResponse(String input) {
 
-        if (Parser.detectBye(input)) { // Terminate the program
-            return UI.getChatbotGoodbye();
-        }
-
         if (input.trim().isEmpty()) { // Empty input
             return UI.getPrettyArray(new String[] { "Cannot add an empty task, try again" });
         }
@@ -110,6 +106,7 @@ public class Jessica {
 
         } catch (IllegalArgumentException e) {
             // Unknown tag, prompt user to try again
+            System.out.println(e.getMessage());
             return UI.getPrettyArray(new String[] { "Please specify the type of task." });
         }
     }
