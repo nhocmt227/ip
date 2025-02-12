@@ -14,9 +14,7 @@ import jessica.Jessica;
 public class PathHandler {
 
     /**
-     * Finds and returns the storage path for the application data file.
-     * The method constructs the path relative to the location of the application's executable or JAR file.
-     * It also handles path adjustments for different operating systems, particularly Windows.
+     * Retrieves the path of the storage file based on the current JAR or executable file.
      *
      * @return The normalized storage path to the data file as a string.
      * @throws JessicaException    If an error occurs while processing the path (application-specific error).

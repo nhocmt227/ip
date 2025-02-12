@@ -3,9 +3,8 @@ package commands;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
+import java.nio.file.*;
+import java.nio.file.attribute.DosFileAttributeView;
 import java.util.List;
 import java.util.Scanner;
 
@@ -39,22 +38,36 @@ public class StorageHandler {
      */
     public void loadDiskToMem(List<Task> list) throws IOException, JessicaException {
         Path filePath = Paths.get(this.filePath);
-
-        // Ensure the parent directory (.data) exists
         Path parentDir = filePath.getParent();
+
+        // Ensure the parent directory exists
         if (parentDir != null && !Files.exists(parentDir)) {
-            Files.createDirectories(parentDir); // Create directories if they don't exist
+            Files.createDirectories(parentDir);
+
+            // Make the parent directory hidden (Windows only)
+            if (System.getProperty("os.name").toLowerCase().contains("win")) {
+                Files.getFileAttributeView(parentDir, DosFileAttributeView.class).setHidden(true);
+            } else {
+                // Rename for Linux/macOS to start with `.`
+                Path hiddenParentDir = parentDir.resolveSibling("." + parentDir.getFileName());
+                Files.move(parentDir, hiddenParentDir, StandardCopyOption.REPLACE_EXISTING);
+                parentDir = hiddenParentDir;
+                filePath = hiddenParentDir.resolve(filePath.getFileName()); // Update filePath
+            }
         }
 
         // Create the file if it doesn't exist
         if (!Files.exists(filePath)) {
             Files.createFile(filePath);
+
         }
 
-        Scanner scanner = new Scanner(filePath.toFile());
-        while (scanner.hasNextLine()) {
-            String data = scanner.nextLine();
-            loadLineToMem(list, data);
+        // Read and load file content
+        try (Scanner scanner = new Scanner(filePath.toFile())) {
+            while (scanner.hasNextLine()) {
+                String data = scanner.nextLine();
+                loadLineToMem(list, data);
+            }
         }
     }
 
@@ -81,15 +94,48 @@ public class StorageHandler {
      * @throws IllegalArgumentException If the list is null or invalid.
      * @throws IOException              If an I/O error occurs during file writing.
      */
-    public void storeMemToDisk(List<Task> list) throws IllegalArgumentException, IOException {
-        FileWriter fw = new FileWriter(this.filePath);
-        StringBuilder sb = new StringBuilder();
-        for (Task task : list) {
-            String s = Converter.taskToDataLine(task);
-            sb.append(s);
+    public void storeMemToDisk(List<Task> list) throws IOException {
+        Path filePath = Paths.get(this.filePath);
+        Path parentDir = filePath.getParent();
+
+        // Ensure the parent directory exists
+        if (parentDir != null && !Files.exists(parentDir)) {
+            Files.createDirectories(parentDir);
+
+            // Make the parent directory hidden (Windows only)
+            if (System.getProperty("os.name").toLowerCase().contains("win")) {
+                Files.getFileAttributeView(parentDir, DosFileAttributeView.class).setHidden(true);
+            } else {
+                // Rename for Linux/macOS to start with `.`
+                Path hiddenParentDir = parentDir.resolveSibling("." + parentDir.getFileName());
+                Files.move(parentDir, hiddenParentDir, StandardCopyOption.REPLACE_EXISTING);
+                parentDir = hiddenParentDir;
+                filePath = hiddenParentDir.resolve(filePath.getFileName()); // Update filePath
+            }
         }
-        fw.write(sb.toString());
-        fw.close();
+
+        // Ensure the file exists and is hidden
+        if (!Files.exists(filePath)) {
+            Files.createFile(filePath);
+
+            // Make the file hidden (Windows only)
+            if (System.getProperty("os.name").toLowerCase().contains("win")) {
+                Files.getFileAttributeView(filePath, DosFileAttributeView.class).setHidden(true);
+            } else {
+                // Rename for Linux/macOS to start with `.`
+                Path hiddenFilePath = filePath.resolveSibling("." + filePath.getFileName());
+                Files.move(filePath, hiddenFilePath, StandardCopyOption.REPLACE_EXISTING);
+                filePath = hiddenFilePath;
+            }
+        }
+
+        // Write data to the hidden file
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath.toFile()))) {
+            for (Task task : list) {
+                writer.write(Converter.taskToDataLine(task));
+                writer.newLine(); // Add newline after each task for readability
+            }
+        }
     }
 
     /**

@@ -14,8 +14,7 @@ import exception.JessicaException;
 import tasks.Task;
 
 /**
- * The main class for the Jessica chatbot application.
- * This class initializes the chatbot, handles user input, manages tasks, and interacts with storage.
+ * The main logic class for the Jessica chatbot application.
  */
 public class Jessica {
 
@@ -63,6 +62,7 @@ public class Jessica {
             String s2 = "Error in storage handling.";
             UI.prettyPrintArray(new String[] { s1, s2 });
         }
+        System.out.println("Log init path: " + storagePath);
     }
 
     /**
@@ -99,8 +99,10 @@ public class Jessica {
             try {
                 storageHandler.storeMemToDisk(list);
             } catch (IOException e) {
+                System.out.println(e.getMessage());
                 output = "Unable to save to storage.";
             } catch (Exception e) {
+                System.out.println(e.getMessage());
                 output = "Error saving to storage: " + e.getMessage();
             }
 
