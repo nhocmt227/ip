@@ -25,6 +25,7 @@ public class StorageHandler {
      * @param filePath The path to the file where tasks will be stored.
      */
     public StorageHandler(String filePath) {
+        assert filePath != null : "File path cannot be null";
         this.filePath = filePath;
     }
 
@@ -37,6 +38,7 @@ public class StorageHandler {
      * @throws JessicaException  If an error occurs while parsing task data.
      */
     public void loadDiskToMem(List<Task> list) throws IOException, JessicaException {
+        assert list != null : "task list cannot be null";
         Path filePath = Paths.get(this.filePath);
         Path parentDir = filePath.getParent();
 
@@ -143,6 +145,7 @@ public class StorageHandler {
      * @throws IOException If an I/O error occurs during file writing.
      */
     public void storeTaskToDisk(Task task) throws IOException {
+        assert task != null : "Task cannot be null";
         String line = Converter.taskToDataLine(task);
         // todo store to file
         BufferedWriter writer = new BufferedWriter(new FileWriter(this.filePath, true));

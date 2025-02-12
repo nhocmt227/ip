@@ -96,6 +96,7 @@ public class Converter {
      *      or if the task type is unknown.
      */
     public static String taskToDataLine(Task task) {
+        assert task != null : "Task cannot be null";
         String s = "";
         if (task instanceof ToDo) {
             if (task.getDescription().contains("|")) {
