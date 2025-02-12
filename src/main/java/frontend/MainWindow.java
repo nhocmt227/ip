@@ -9,14 +9,11 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import java.util.concurrent.TimeUnit;
-import java.util.function.IntToDoubleFunction;
 
 /**
  * Controller for the main GUI.
  */
 public class MainWindow extends AnchorPane {
-
-    private static final String BYE_MESSAGE = "bye";
 
     @FXML
     private ScrollPane scrollPane;
@@ -29,8 +26,8 @@ public class MainWindow extends AnchorPane {
 
     private Jessica jessica;
 
-    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
-    private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
+    private final Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
+    private final Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
 
     @FXML
     public void initialize() {

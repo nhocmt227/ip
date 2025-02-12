@@ -4,9 +4,7 @@ import exception.JessicaException;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class ParserTest {
 
@@ -215,29 +213,4 @@ public class ParserTest {
         assertThrows(JessicaException.class, () -> Parser.getFindDescription("3 find"));
     }
 
-    // Unit test for detectBye method
-    @Test
-    public void detectBye_exactMatch() {
-        assertTrue(Parser.detectBye("bye"));
-    }
-
-    @Test
-    public void detectBye_extraSpaces_true() {
-        assertTrue(Parser.detectBye(" bye "));
-        assertTrue(Parser.detectBye("   bye   "));
-    }
-
-    @Test
-    public void detectBye_caseInsensitive_false() {
-        assertFalse(Parser.detectBye("Bye"));
-        assertFalse(Parser.detectBye("BYE"));
-        assertFalse(Parser.detectBye("bYe"));
-    }
-
-    @Test
-    public void detectBye_partialMatch_false() {
-        assertFalse(Parser.detectBye("goodbye"));
-        assertFalse(Parser.detectBye("say bye"));
-        assertFalse(Parser.detectBye("bye now"));
-    }
 }

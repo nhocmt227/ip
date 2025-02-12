@@ -11,12 +11,12 @@ import tasks.Task;
 public class UI {
 
     public static String getArray(String[] items) {
-        String result = "";
+        StringBuilder result = new StringBuilder();
         for (String item : items) {
             String temp = "  " + item + "\n";
-            result += temp;
+            result.append(temp);
         }
-        return result;
+        return result.toString();
     }
 
     public static String getPrettyArray(String[] items) {
@@ -24,12 +24,12 @@ public class UI {
     }
 
     public static String getPrettyList(List<?> list) {
-        String result = "";
+        StringBuilder result = new StringBuilder();
         for (int i = 0; i < list.size(); i++) {
             String temp = "  " + (i + 1) + ". " + list.get(i).toString() + "\n";
-            result += temp;
+            result.append(temp);
         }
-        return result;
+        return result.toString();
     }
 
     public static String getAddedTask(Task task, List<?> list) {
@@ -39,47 +39,13 @@ public class UI {
         return getPrettyArray(new String[] {s1, s2, s3});
     }
 
-    public static String getPrettyName() {
-        String s = "      _               _\n"
-                + "     | | ___  ___ ___(_) ___ __ _\n"
-                + "  _  | |/ _ \\/ __/ __| |/ __/ _` |\n"
-                + " | |_| |  __/\\__ \\__ \\ | (_| (_| |\n"
-                + "  \\___/ \\___||___/___/_|\\___\\__,_|\n";
-        return s;
-    }
-
-    /**
-     * Prints a greeting message when the chatbot starts.
-     */
-    public static String getChatbotHello() {
-        String result = UI.getPrettyName();
-        String s1 = "Hello! I'm jessica.Jessica";
-        String s2 = "What can I do for you?";
-        result += getPrettyArray(new String[] {s1, s2});
-        return result;
-    }
-
-    /**
-     * Prints a farewell message when the chatbot shuts down.
-     */
-    public static String getChatbotGoodbye() {
-        String s1 = "Bye. Hope to see you again soon!";
-        return getPrettyArray(new String[] {s1});
-    }
-
-
-
-
-
-
-
 
 
 
 
 
     /**
-     * Prints a horizontal border line.
+     * Prints a horizontal borderline.
      */
     public static void printBorder() {
         System.out.println("    ____________________________________________________________");
@@ -97,7 +63,7 @@ public class UI {
     }
 
     /**
-     * Prints an array of strings enclosed between two border lines.
+     * Prints an array of strings enclosed between two borderlines.
      *
      * @param items The array of strings to print.
      */
@@ -107,35 +73,6 @@ public class UI {
         printBorder();
     }
 
-    /**
-     * Prints the ASCII art name of the chatbot.
-     */
-    public static void printPrettyName() {
-        String s = "      _               _\n"
-                + "     | | ___  ___ ___(_) ___ __ _\n"
-                + "  _  | |/ _ \\/ __/ __| |/ __/ _` |\n"
-                + " | |_| |  __/\\__ \\__ \\ | (_| (_| |\n"
-                + "  \\___/ \\___||___/___/_|\\___\\__,_|\n";
-        System.out.println(s);
-    }
-
-    /**
-     * Prints a greeting message when the chatbot starts.
-     */
-    public static void chatbotHello() {
-        UI.printPrettyName();
-        String s1 = "Hello! I'm jessica.Jessica";
-        String s2 = "What can I do for you?";
-        prettyPrintArray(new String[] {s1, s2});
-    }
-
-    /**
-     * Prints a farewell message when the chatbot shuts down.
-     */
-    public static void chatbotGoodbye() {
-        String s1 = "Bye. Hope to see you again soon!";
-        prettyPrintArray(new String[] {s1});
-    }
 
     /**
      * Returns a message indicating the current number of tasks in the list.

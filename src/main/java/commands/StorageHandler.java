@@ -51,7 +51,6 @@ public class StorageHandler {
                 // Rename for Linux/macOS to start with `.`
                 Path hiddenParentDir = parentDir.resolveSibling("." + parentDir.getFileName());
                 Files.move(parentDir, hiddenParentDir, StandardCopyOption.REPLACE_EXISTING);
-                parentDir = hiddenParentDir;
                 filePath = hiddenParentDir.resolve(filePath.getFileName()); // Update filePath
             }
         }
@@ -109,7 +108,6 @@ public class StorageHandler {
                 // Rename for Linux/macOS to start with `.`
                 Path hiddenParentDir = parentDir.resolveSibling("." + parentDir.getFileName());
                 Files.move(parentDir, hiddenParentDir, StandardCopyOption.REPLACE_EXISTING);
-                parentDir = hiddenParentDir;
                 filePath = hiddenParentDir.resolve(filePath.getFileName()); // Update filePath
             }
         }
