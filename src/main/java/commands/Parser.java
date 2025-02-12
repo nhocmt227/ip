@@ -223,23 +223,6 @@ public class Parser {
     }
 
     /**
-     * Parses the input string and returns an array of individual components.
-     *
-     * @param input The user's input command.
-     * @return An array of strings containing the parsed components.
-     */
-    public static String[] parseInput(String input) {
-        /*
-         * This method parses all the tag in that input
-         * Example use: input = "mark 1  2"
-         *              result = ["mark", "1", "2"]
-         * */
-        input = input.trim();
-        // "\\s+" is a regular expression for one or more spaces
-        return input.split("\\s+");
-    }
-
-    /**
      * Detects if the input command is the "bye" command.
      *
      * @param input The user's input command.

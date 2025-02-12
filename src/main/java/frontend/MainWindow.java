@@ -7,10 +7,16 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import java.util.concurrent.TimeUnit;
+import java.util.function.IntToDoubleFunction;
+
 /**
  * Controller for the main GUI.
  */
 public class MainWindow extends AnchorPane {
+
+    private static final String BYE_MESSAGE = "bye";
+
     @FXML
     private ScrollPane scrollPane;
     @FXML
@@ -43,10 +49,20 @@ public class MainWindow extends AnchorPane {
     private void handleUserInput() {
         String input = userInput.getText();
         String response = jessica.getResponse(input);
+        System.out.println(response);
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
                 DialogBox.getDukeDialog(response, dukeImage)
         );
+        if (response.equals(BYE_MESSAGE)) {
+            try {
+                TimeUnit.MILLISECONDS.sleep(500);
+            } catch (InterruptedException e) {
+                System.out.println(e.getMessage());
+            }
+            // code to exit the program
+            System.exit(0);
+        }
         userInput.clear();
     }
 }

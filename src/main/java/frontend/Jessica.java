@@ -83,35 +83,17 @@ public class Jessica {
             Tag tag = getFirstTag(input);
 
             // Process commands based on tag
-            switch (tag) {
-                case LIST:
-                    output = logicHandler.handleList(input);
-                    break;
-                case FIND:
-                    output = logicHandler.handleFind(input);
-                    break;
-                case MARK:
-                    output = logicHandler.handleMark(input);
-                    break;
-                case UNMARK:
-                    output = logicHandler.handleUnmark(input);
-                    break;
-                case TODO:
-                    output = logicHandler.handleToDo(input);
-                    break;
-                case DEADLINE:
-                    output = logicHandler.handleDeadline(input);
-                    break;
-                case EVENT:
-                    output = logicHandler.handleEvent(input);
-                    break;
-                case DELETE:
-                    output = logicHandler.handleDelete(input);
-                    break;
-                default:
-                    output = "Unknown command, try again.";
-                    break;
-            }
+            output = switch (tag) {
+                case LIST -> logicHandler.handleList(input);
+                case FIND -> logicHandler.handleFind(input);
+                case MARK -> logicHandler.handleMark(input);
+                case UNMARK -> logicHandler.handleUnmark(input);
+                case TODO -> logicHandler.handleToDo(input);
+                case DEADLINE -> logicHandler.handleDeadline(input);
+                case EVENT -> logicHandler.handleEvent(input);
+                case DELETE -> logicHandler.handleDelete(input);
+                default -> "Unknown command, try again.";
+            };
 
             // Save tasks to storage
             try {

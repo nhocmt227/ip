@@ -44,7 +44,6 @@ test {
 }
 
 application {
-//    mainClass.set("jessica.Jessica")
     mainClass.set("frontend.Launcher")
 }
 

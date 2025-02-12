@@ -10,10 +10,6 @@ import tasks.Task;
  */
 public class UI {
 
-    public static String getPrettyBorder() {
-        return "    ____________________________________________________________\n";
-    }
-
     public static String getArray(String[] items) {
         String result = "";
         for (String item : items) {
@@ -109,32 +105,6 @@ public class UI {
         printBorder();
         printArray(items);
         printBorder();
-    }
-
-    /**
-     * Prints a list of objects, each preceded by its index, enclosed between two border lines.
-     *
-     * @param list The list of objects to print.
-     */
-    public static void prettyPrintList(List<?> list) {
-        printBorder();
-        for (int i = 0; i < list.size(); i++) {
-            System.out.println("     " + (i + 1) + ". " + list.get(i).toString());
-        }
-        printBorder();
-    }
-
-    /**
-     * Prints a message indicating that a task has been added, along with the current task count.
-     *
-     * @param task The task that was added.
-     * @param list The current list of tasks.
-     */
-    public static void printAddedTask(Task task, List<?> list) {
-        String s1 = "Got it. I've added this task:";
-        String s2 = "  " + task.toString();
-        String s3 = "Now you have " + getTaskCountMessage(list) + " in the list.";
-        prettyPrintArray(new String[] {s1, s2, s3});
     }
 
     /**

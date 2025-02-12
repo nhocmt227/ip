@@ -6,7 +6,6 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
@@ -104,31 +103,6 @@ public class StorageHandler {
         // todo store to file
         BufferedWriter writer = new BufferedWriter(new FileWriter(this.filePath, true));
         writer.write(line);
-        writer.close();
-    }
-
-    /**
-     * Refactors the task storage file by clearing and rewriting all tasks.
-     * This removes unnecessary or malformed lines in the file.
-     *
-     * @throws IOException       If an I/O error occurs during file operations.
-     * @throws JessicaException  If an error occurs while loading or parsing tasks.
-     */
-    public void refactor() throws IOException, JessicaException {
-        List<Task> list = new ArrayList<>();
-        loadDiskToMem(list);
-        clearFileContent();
-        storeMemToDisk(list);
-    }
-
-    /**
-     * Clears all content in the task storage file.
-     *
-     * @throws IOException If an I/O error occurs during file writing.
-     */
-    public void clearFileContent() throws IOException {
-        FileWriter writer = new FileWriter(this.filePath);
-        writer.write("");
         writer.close();
     }
 }

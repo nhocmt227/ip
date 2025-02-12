@@ -229,8 +229,7 @@ public class LogicHandler {
         try {
             String description = Parser.getFindDescription(input);
             List<Task> listToFind = new ArrayList<>();
-            for (int i = 0; i < this.tasksList.size(); i++) {
-                Task t = this.tasksList.get(i);
+            for (Task t : this.tasksList) {
                 if (t.toString().contains(description)) {
                     listToFind.add(t);
                 }
