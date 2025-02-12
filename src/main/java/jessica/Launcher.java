@@ -1,4 +1,4 @@
-package frontend;
+package jessica;
 
 import javafx.application.Application;
 

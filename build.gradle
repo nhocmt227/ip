@@ -44,7 +44,7 @@ test {
 }
 
 application {
-    mainClass.set("frontend.Launcher")
+    mainClass.set("jessica.Launcher")
 }
 
 shadowJar {

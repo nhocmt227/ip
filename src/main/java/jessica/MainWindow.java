@@ -1,4 +1,4 @@
-package frontend;
+package jessica;
 
 import javafx.application.Platform;
 import javafx.fxml.FXML;
