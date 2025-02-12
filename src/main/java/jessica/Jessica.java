@@ -28,7 +28,7 @@ public class Jessica {
      * Enum representing the different command tags that the chatbot recognizes.
      */
     public enum Tag {
-        LIST, MARK, UNMARK, TODO, DEADLINE, EVENT, DELETE, FIND
+        LIST, MARK, UNMARK, TODO, DEADLINE, EVENT, DELETE, FIND, HELP
     }
 
     /**
@@ -87,6 +87,7 @@ public class Jessica {
                 case DEADLINE -> logicHandler.handleDeadline(input);
                 case EVENT -> logicHandler.handleEvent(input);
                 case DELETE -> logicHandler.handleDelete(input);
+                case HELP -> logicHandler.handleHelp();
                 default -> "Unknown command, try again.";
             };
 

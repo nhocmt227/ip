@@ -1,5 +1,8 @@
 package jessica;
 
+import javafx.animation.FadeTransition;
+import javafx.animation.PauseTransition;
+import javafx.animation.TranslateTransition;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -8,6 +11,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import javafx.util.Duration;
+
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -20,7 +25,7 @@ public class MainWindow extends AnchorPane {
     @FXML
     private VBox dialogContainer;
     @FXML
-    private TextField userInput;
+    private TextField userInput; // Input textbox
     @FXML
     private Button sendButton;
 
@@ -35,7 +40,7 @@ public class MainWindow extends AnchorPane {
     }
 
     /** Injects the Duke instance */
-    public void setDuke(Jessica d) {
+    public void setJessica(Jessica d) {
         jessica = d;
     }
 
@@ -51,20 +56,52 @@ public class MainWindow extends AnchorPane {
         }
         String response = jessica.getResponse(input);
         System.out.println(response);
-        dialogContainer.getChildren().addAll(
-                DialogBox.getUserDialog(input, userImage),
-                DialogBox.getDukeDialog(response, dukeImage)
-        );
+        handleInputPopUp(input);
+        PauseTransition delay = new PauseTransition(Duration.millis(300));
+        delay.setOnFinished(event -> handleResponsePopUp(response));
+        delay.play();
         userInput.clear();
     }
 
+    private void handleInputPopUp(String input) {
+        DialogBox userDialog = DialogBox.getUserDialog(input, userImage);
+        applyFadeAndSlide(userDialog); // Apply animation
+        dialogContainer.getChildren().add(userDialog);
+    }
+
+    private void handleResponsePopUp(String response) {
+        DialogBox dukeDialog = DialogBox.getDukeDialog(response, dukeImage);
+        applyFadeAndSlide(dukeDialog); // Apply animation
+        dialogContainer.getChildren().add(dukeDialog);
+    }
+
+    private void applyFadeAndSlide(DialogBox dialog) {
+        // Fade transition (makes it appear smoothly)
+        FadeTransition fadeIn = new FadeTransition(Duration.millis(500), dialog);
+        fadeIn.setFromValue(0);
+        fadeIn.setToValue(1);
+
+        // Slide transition (makes it move up slightly)
+        TranslateTransition slideUp = new TranslateTransition(Duration.millis(500), dialog);
+        slideUp.setFromY(30); // Start 30 pixels lower
+        slideUp.setToY(0); // Move to normal position
+
+        // Play animations together
+        fadeIn.play();
+        slideUp.play();
+    }
+
     private void exitProgram() {
+        wait(300);
+        // code to exit the program
+        Platform.exit();
+    }
+
+    private void wait(int millisecond) {
         try {
-            TimeUnit.MILLISECONDS.sleep(200);
+            TimeUnit.MILLISECONDS.sleep(millisecond);
         } catch (InterruptedException e) {
             System.out.println(e.getMessage());
         }
-        // code to exit the program
-        Platform.exit();
     }
 }

@@ -9,12 +9,26 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 /**
- * A GUI for Duke using FXML.
+ * The main entry point for the Jessica application.
+ * <p>
+ * This class initializes and launches the JavaFX GUI using FXML.
+ * It loads the main window layout from an FXML file and sets up
+ * the primary stage.
+ * </p>
  */
 public class Main extends Application {
 
     private Jessica jessica = new Jessica();
 
+    /**
+     * Starts the JavaFX application.
+     * <p>
+     * This method loads the FXML layout for the main window, sets up
+     * the scene, and displays the application window.
+     * </p>
+     *
+     * @param stage The primary stage for this application.
+     */
     @Override
     public void start(Stage stage) {
         try {
@@ -22,7 +36,7 @@ public class Main extends Application {
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
             stage.setScene(scene);
-            fxmlLoader.<MainWindow>getController().setDuke(jessica);  // inject the Duke instance
+            fxmlLoader.<MainWindow>getController().setJessica(jessica);  // inject the Jessica instance
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
