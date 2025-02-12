@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import exception.JessicaException;
+import jessica.Help;
 import tasks.Deadline;
 import tasks.Event;
 import tasks.Task;
@@ -44,7 +45,7 @@ public class LogicHandler {
             return UI.getPrettyList(tasksList);
         } else {
             String s1 = "Invalid list syntax, try again";
-            String s2 = "Usage: list";
+            String s2 = Help.LIST_USAGE;
             return UI.getPrettyArray(new String[] {s1, s2});
         }
     }
@@ -65,11 +66,11 @@ public class LogicHandler {
             return UI.getPrettyArray(new String[] {s1, s2});
         } catch (JessicaException e) {
             String s1 = e.getMessage();
-            String s2 = "Usage: mark [index]";
+            String s2 = Help.MARK_USAGE;
             return UI.getPrettyArray(new String[] {s1, s2});
         } catch (IndexOutOfBoundsException e) {
             String s1 = "Index out of bound, try again";
-            String s2 = "Usage: mark [index]";
+            String s2 = Help.MARK_USAGE;
             return UI.getPrettyArray(new String[] {s1, s2});
         } catch (IOException e) {
             String s1 = e.getMessage();
@@ -94,11 +95,11 @@ public class LogicHandler {
             return UI.getPrettyArray(new String[] {s1, s2});
         } catch (JessicaException e) {
             String s1 = e.getMessage();
-            String s2 = "Usage: unmark [index]";
+            String s2 = Help.UNMARK_USAGE;
             return UI.getPrettyArray(new String[] {s1, s2});
         } catch (IndexOutOfBoundsException e) {
             String s1 = "Index out of bound, try again";
-            String s2 = "Usage: unmark [index]";
+            String s2 = Help.UNMARK_USAGE;
             return UI.getPrettyArray(new String[] {s1, s2});
         } catch (IOException e) {
             String s1 = e.getMessage();
@@ -121,7 +122,7 @@ public class LogicHandler {
             return UI.getAddedTask(newTask, tasksList);
         } catch (JessicaException e) {
             String s1 = e.getMessage();
-            String s2 = "Usage: todo [description]";
+            String s2 = Help.TODO_USAGE;
             return UI.getPrettyArray(new String[] {s1, s2});
         } catch (IOException e) {
             String s1 = e.getMessage();
@@ -146,11 +147,11 @@ public class LogicHandler {
             return UI.getAddedTask(newTask, tasksList);
         } catch (JessicaException e) {
             String s1 = e.getMessage();
-            String s2 = "Usage: deadline [description] /by [end date]";
+            String s2 = Help.DEADLINE_USAGE;
             return UI.getPrettyArray(new String[] {s1, s2});
         } catch (DateTimeParseException e) {
             String s1 = e.getMessage();
-            String s2 = "Usage: deadline [description] /by [end date]";
+            String s2 = Help.DEADLINE_USAGE;
             String s3 = "Date format: yyyy-mm-dd";
             return UI.getPrettyArray(new String[] {s1, s2, s3});
         } catch (IOException e) {
@@ -176,11 +177,11 @@ public class LogicHandler {
             return UI.getAddedTask(newTask, tasksList);
         } catch (JessicaException e) {
             String s1 = e.getMessage();
-            String s2 = "Usage: event [description] /from [begin time] /to [end time]";
+            String s2 = Help.EVENT_USAGE;
             return UI.getPrettyArray(new String[] {s1, s2});
         } catch (DateTimeParseException e) {
             String s1 = e.getMessage();
-            String s2 = "Usage: deadline [description] /by [end date]";
+            String s2 = Help.EVENT_USAGE;
             String s3 = "Date format: yyyy-mm-dd";
             return UI.getPrettyArray(new String[] {s1, s2, s3});
         } catch (IOException e) {
@@ -207,11 +208,11 @@ public class LogicHandler {
             return UI.getPrettyArray(new String[] {s1, s2, s3});
         } catch (JessicaException e) {
             String s1 = e.getMessage();
-            String s2 = "Usage: delete [index]";
+            String s2 = Help.DELETE_USAGE;
             return UI.getPrettyArray(new String[] {s1, s2});
         } catch (IndexOutOfBoundsException e) {
             String s1 = "Index out of bound, try again";
-            String s2 = "Usage: delete [index]";
+            String s2 = Help.DELETE_USAGE;
             return UI.getPrettyArray(new String[] {s1, s2});
         } catch (IOException e) {
             String s1 = e.getMessage();
@@ -237,9 +238,12 @@ public class LogicHandler {
             return UI.getPrettyList(listToFind);
         } catch (JessicaException e) {
             String s1 = e.getMessage();
-            String s2 = "Usage: find [message]";
+            String s2 = Help.FIND_USAGE;
             return UI.getPrettyArray(new String[] {s1, s2});
         }
+    }
 
+    public String handleHelp() {
+        return Help.help();
     }
 }
