@@ -17,3 +17,4 @@ bin/
 /text-ui-test/test-default/ACTUAL.TXT
 text-ui-test/EXPECTED-UNIX.TXT
 run.bat
+link.txt

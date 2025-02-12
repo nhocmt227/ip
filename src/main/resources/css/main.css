@@ -1,16 +1,20 @@
 .root {
-    main-color: #FEF9E1;       /* Create a looked-up color called "main-color" within root. */
-    -fx-background-color: #FEF9E1;
+    -fx-background-color: linear-gradient(to bottom right, #FFD6C3, #FFBFA5); /* Brighter soft gradient */
+}
+
+.scroll-pane {
+    -fx-background-color: linear-gradient(to bottom right, #FFD6C3, #FFBFA5); /* Light peach-pink gradient */
+    -fx-border-color: transparent;
 }
 
 .text-field {
-    -fx-background-color: red;
+    -fx-background-color: #FFF6E3;
     -fx-font: 20px "Arial";
+
 }
 
 .button {
-    -fx-background-color: mediumspringgreen;
-    -fx-font: italic bold 16px "Arial";
+    -fx-border-radius: 100px;
 }
 
 .button:hover {
@@ -23,19 +27,19 @@
     -fx-font-size: 20px;
 }
 
-.scroll-pane,
-.scroll-pane .viewport {
+
+.viewport {
     -fx-background-color: transparent;
 }
 
 .scroll-bar {
     -fx-font-size: 10px;  /* Change width of scroll bar. */
-    -fx-background-color: main-color;
+    -fx-background-color: #DFD3C3;
 }
 
 .scroll-bar .thumb {
-    -fx-background-color: #ff9cb4;
     -fx-background-radius: 1em;
+    -fx-background-color: #C5705D;   /* Using looked-up color */
 }
 
 /* Hides the increment and decrement buttons. */
@@ -45,36 +49,23 @@
     -fx-opacity: 0;
 }
 
-.root {
-    main-color: rgb(237, 255, 242);     /* Create a looked-up color called "main-color" within root */
-    -fx-background-color: main-color;
+
+
+
+
+
+
+#sendButton {
+    -fx-background-color: transparent; /* Remove default button background */
+    -fx-border-radius: 8px;
+    -fx-cursor: hand; /* Show pointer on hover */
+    -fx-padding: 5px;
 }
 
-.scroll-bar {
-    ...
-    -fx-background-color: main-color;   /* Using looked-up color */
+#sendButton:hover {
+    -fx-background-color: rgba(0, 255, 191, 0.2); /* Light glow effect */
 }
 
-.button {
-    -fx-background-color:springgreen;
-    -fx-font: italic bold 16px "Arial";
+#sendButton:pressed {
+    -fx-background-color: rgba(0, 255, 191, 0.4); /* Darker effect when clicked */
 }
-
-.button:hover {
-    -fx-background-color:cyan;
-    -fx-font-size: 18px;
-}
-
-.button:pressed {
-    -fx-background-color:orange;
-    -fx-font-size: 20px;
-}
-
-.scroll-pane {
-    -fx-background-color: purple;
-}
-
-.scroll-pane .viewport {
-    -fx-background-color: transparent;
-}
-
