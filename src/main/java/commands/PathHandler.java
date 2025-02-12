@@ -13,6 +13,8 @@ import jessica.Jessica;
  */
 public class PathHandler {
 
+    private static final String DATA_FILE_PATH = "/.data/jessica.txt";
+
     /**
      * Retrieves the path of the storage file based on the current JAR or executable file.
      *
@@ -32,7 +34,7 @@ public class PathHandler {
         Path parentPath = path.getParent();
 
         // Construct the storage path and normalize separators
-        String storagePath = parentPath.toString() + "/.data/jessica.txt";
+        String storagePath = parentPath.toString() + DATA_FILE_PATH;
         storagePath = storagePath.replace("\\", "/"); // Ensure forward slashes for consistency
 
         return storagePath;

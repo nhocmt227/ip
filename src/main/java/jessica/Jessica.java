@@ -131,6 +131,7 @@ public class Jessica {
         try {
             return Tag.valueOf(tagStr.toUpperCase());
         } catch (IllegalArgumentException e) {
+            System.out.println(e.getMessage());
             throw new IllegalArgumentException("Invalid command: " + tagStr);
         }
     }

@@ -107,7 +107,8 @@ public class Converter {
             s += task.getDescription();
             s += "\n";
         } else if (task instanceof Deadline) {
-            if (task.getDescription().contains("|") || ((Deadline) task).getDeadline().toString().contains("|")) {
+            Deadline deadline = (Deadline) task;
+            if (deadline.getDescription().contains("|") || (deadline.getDeadline().toString().contains("|"))) {
                 throw new IllegalArgumentException("message cannot contain |");
             }
             s += "D|";
@@ -116,13 +117,14 @@ public class Converter {
             s += ((Deadline) task).getDeadline();
             s += "\n";
         } else if (task instanceof Event) {
-            if (task.getDescription().contains("|")) {
+            Event event = (Event) task;
+            if (event.getDescription().contains("|")) {
                 throw new IllegalArgumentException("message cannot contain |");
             }
-            if (((Event) task).getStartDate().toString().contains("|")) {
+            if (event.getStartDate().toString().contains("|")) {
                 throw new IllegalArgumentException("message cannot contain |");
             }
-            if (((Event) task).getEndDate().toString().contains("|")) {
+            if (event.getEndDate().toString().contains("|")) {
                 throw new IllegalArgumentException("message cannot contain |");
             }
             s += "E|";
