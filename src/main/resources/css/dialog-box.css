@@ -1,13 +1,16 @@
 .reply-label {
+    -fx-background-color: linear-gradient(to bottom right, #FFC3A0, #FFD6C3); /* Soft peach gradient */
+    -fx-border-color: #FFBFA5; /* Soft pastel border */
     -fx-background-radius: 1em 1em 1em 0;
     -fx-border-radius: 1em 1em 1em 0;
     -fx-font-family: ".SF NS Text", "San Francisco", "Helvetica Neue", "Arial", sans-serif; /* Apple's system font */
     -fx-font-size: 15px; /* Set font size */
 }
 
+/* Main Label with Pastel Theme */
 .label {
-    -fx-background-color: linear-gradient(to bottom right, #00ffbf, #00ddff);
-    -fx-border-color: #d55e00 #009e73 #cc79a7 #0072b2;
+    -fx-background-color: linear-gradient(to bottom right, #A8E6CF, #DCE8B5); /* Soft mint and pastel yellow */
+    -fx-border-color: #FFAAA5 #FF8B94 #D4A5A5 #FFB5A7; /* Soft pinks and reds */
     -fx-border-width: 2px;
     -fx-background-radius: 1em 1em 0 1em;
     -fx-border-radius: 1em 1em 0 1em;
@@ -17,6 +20,7 @@
     -fx-font-family: ".SF NS Text", "San Francisco", "Helvetica Neue", "Arial", sans-serif; /* Apple's system font */
     -fx-font-size: 15px; /* Set font size */
 }
+
 
 #displayPicture {
     /* Shadow effect on image. */
