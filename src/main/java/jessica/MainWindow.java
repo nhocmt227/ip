@@ -4,6 +4,8 @@ import javafx.animation.FadeTransition;
 import javafx.animation.PauseTransition;
 import javafx.animation.TranslateTransition;
 import javafx.application.Platform;
+import javafx.beans.binding.Bindings;
+import javafx.beans.binding.StringBinding;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -37,6 +39,36 @@ public class MainWindow extends AnchorPane {
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
+        sendButton.disableProperty().bind(userInput.textProperty().isEmpty());
+
+        // Set placeholder text initially and bind it dynamically
+        userInput.setPromptText("Type something or try help");  // Ensure it appears at startup
+        userInput.promptTextProperty().bind(animateEmptyInput());
+
+        // Ensure CSS animation applies when empty
+        if (userInput.getText().isEmpty()) {
+            userInput.getStyleClass().add("decorate-empty-text");
+        }
+
+        // Prevent Enter key from submitting when input is empty
+        userInput.setOnAction(event -> {
+            if (userInput.getText().isEmpty()) {
+                event.consume(); // Prevent action from triggering
+            } else {
+                handleUserInput(); // Submit normally
+            }
+        });
+
+        // Add listener to toggle the placeholder animation class
+        userInput.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue.isEmpty()) {
+                if (!userInput.getStyleClass().contains("decorate-empty-text")) {
+                    userInput.getStyleClass().add("decorate-empty-text");
+                }
+            } else {
+                userInput.getStyleClass().remove("decorate-empty-text");
+            }
+        });
     }
 
     /** Injects the Duke instance */
@@ -51,6 +83,9 @@ public class MainWindow extends AnchorPane {
     @FXML
     private void handleUserInput() {
         String input = userInput.getText();
+        if (input.isEmpty()) {
+            return; // Do nothing if input is empty
+        }
         if (input.trim().equals("bye")) {
             exitProgram();
         }
@@ -103,5 +138,11 @@ public class MainWindow extends AnchorPane {
         } catch (InterruptedException e) {
             System.out.println(e.getMessage());
         }
+    }
+
+    private StringBinding animateEmptyInput() {
+        return Bindings.when(userInput.textProperty().isEmpty())
+                .then("Type something or try help...") // Show placeholder when empty
+                .otherwise(""); // Remove placeholder when typing
     }
 }

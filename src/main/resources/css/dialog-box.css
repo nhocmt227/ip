@@ -1,6 +1,8 @@
 .reply-label {
     -fx-background-radius: 1em 1em 1em 0;
     -fx-border-radius: 1em 1em 1em 0;
+    -fx-font-family: ".SF NS Text", "San Francisco", "Helvetica Neue", "Arial", sans-serif; /* Apple's system font */
+    -fx-font-size: 15px; /* Set font size */
 }
 
 .label {
@@ -12,6 +14,8 @@
     -fx-padding: 6px;
     -fx-border-insets: 0px 7px 0px 7px;
     -fx-background-insets: 0px 7px 0px 7px;
+    -fx-font-family: ".SF NS Text", "San Francisco", "Helvetica Neue", "Arial", sans-serif; /* Apple's system font */
+    -fx-font-size: 15px; /* Set font size */
 }
 
 #displayPicture {
@@ -25,3 +29,4 @@
     /* Rotate image clockwise by degrees. */
     -fx-rotate: 0;
 }
+

@@ -7,18 +7,15 @@
     -fx-border-color: transparent;
 }
 
-.text-field {
-    -fx-background-color: #FFF6E3;
-    -fx-font: 20px "Arial";
-
-}
-
 .button {
+    -fx-font-family: ".SF NS Text", "San Francisco", "Helvetica Neue", "Arial", sans-serif; /* Apple's system font */
+    -fx-font-size: 16px; /* Set font size */
     -fx-border-radius: 100px;
+    -fx-background-color: #F0F0D7;
 }
 
 .button:hover {
-    -fx-background-color:cyan;
+    -fx-background-color:#E1EACD;
     -fx-font-size: 18px;
 }
 
@@ -48,3 +45,28 @@
     -fx-pref-height: 0;
     -fx-opacity: 0;
 }
+
+
+
+
+/* Default placeholder style */
+.text-field {
+    -fx-font-family: ".SF NS Text", "San Francisco", "Helvetica Neue", "Arial", sans-serif; /* Apple's system font */
+    -fx-font-size: 15px; /* Set font size */
+    -fx-prompt-text-fill: rgba(0, 0, 0, 0.4); /* Dimmed placeholder text */
+    -fx-transition: all 0.3s ease-in-out; /* Smooth transition */
+}
+
+/* Placeholder animation when input is empty */
+.decorate-empty-text {
+    -fx-prompt-text-fill: rgba(0, 0, 255, 0.6); /* Light blue effect */
+    -fx-font-style: italic;
+    -fx-opacity: 0.7;
+}
+
+/* Optional: Fade-in effect when focused */
+.text-field:focused {
+    -fx-prompt-text-fill: rgba(0, 0, 0, 0.6);
+}
+
+
