@@ -36,7 +36,7 @@
 
 .hello-label {
     /* Softer gold gradient */
-    -fx-background-color: linear-gradient(to bottom right, #F4A88B, #FFC1C1); /* Stronger pastel tones */
+    -fx-background-color: linear-gradient(to bottom right, #87B5D9, #A8CBE6, #E5AFA4);
 
     /* Vintage purple border */
     -fx-border-color: #7D5BA6; /* Muted royal purple */

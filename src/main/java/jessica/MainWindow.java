@@ -1,11 +1,7 @@
 package jessica;
 
-import javafx.animation.FadeTransition;
-import javafx.animation.PauseTransition;
-import javafx.animation.TranslateTransition;
+import javafx.animation.*;
 import javafx.application.Platform;
-import javafx.beans.binding.Bindings;
-import javafx.beans.binding.StringBinding;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -14,118 +10,142 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.util.Duration;
-import org.w3c.dom.Text;
 
 import java.util.concurrent.TimeUnit;
 
 /**
- * Controller for the main GUI.
+ * Controller for the main GUI of Jessica chatbot.
  */
 public class MainWindow extends AnchorPane {
+
+    public static final double SCROLL_SENSITIVITY = 0.4;
 
     @FXML
     private ScrollPane scrollPane;
     @FXML
     private VBox dialogContainer;
     @FXML
-    private TextField userInput; // Input textbox
+    private TextField userInput;
     @FXML
     private Button sendButton;
 
     private Jessica jessica;
-
     private final Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
     private final Image jessicaImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
 
+    /**
+     * Initializes UI elements and event listeners.
+     */
     @FXML
     public void initialize() {
-        scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
         sendButton.disableProperty().bind(userInput.textProperty().isEmpty());
+
+        // Auto-scroll when new messages appear
+        dialogContainer.heightProperty().addListener((obs, oldVal, newVal) ->
+                Platform.runLater(this::smoothScrollToBottom)
+        );
+
+        // Custom smooth mouse scrolling
+        scrollPane.addEventFilter(javafx.scene.input.ScrollEvent.SCROLL, event -> {
+            smoothMouseScroll(event.getDeltaY());
+            event.consume();
+        });
 
         chatbotHello();
 
-        // Set placeholder text initially and bind it dynamically
-        userInput.setPromptText("Type something or try help");  // Ensure it appears at startup
+        // Set and bind placeholder text
+        userInput.setPromptText("Type something or try help");
         userInput.promptTextProperty().bind(Animation.animateEmptyInput(userInput));
 
-        // Ensure CSS animation applies when empty
-        if (userInput.getText().isEmpty()) {
-            userInput.getStyleClass().add("decorate-empty-text");
-        }
-
-        // Prevent Enter key from submitting when input is empty
-        userInput.setOnAction(event -> {
-            if (userInput.getText().isEmpty()) {
-                event.consume(); // Prevent action from triggering
-            } else {
-                handleUserInput(); // Submit normally
-            }
-        });
-
-        // Add listener to toggle the placeholder animation class
+        // Toggle placeholder animation class
         userInput.textProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue.isEmpty()) {
-                if (!userInput.getStyleClass().contains("decorate-empty-text")) {
-                    userInput.getStyleClass().add("decorate-empty-text");
-                }
+                userInput.getStyleClass().add("decorate-empty-text");
             } else {
                 userInput.getStyleClass().remove("decorate-empty-text");
             }
         });
+
+        // Prevent Enter key from submitting empty input
+        userInput.setOnAction(event -> {
+            if (!userInput.getText().isEmpty()) {
+                handleUserInput();
+            } else {
+                event.consume();
+            }
+        });
     }
 
-    /** Injects the Jessica instance */
+    /**
+     * Injects the chatbot instance.
+     * @param d Jessica chatbot instance
+     */
     public void setJessica(Jessica d) {
         jessica = d;
     }
 
     /**
-     * Creates two dialog boxes, one echoing user input and the other containing Duke's reply and then appends them to
-     * the dialog container. Clears the user input after processing.
+     * Handles user input, processes response, and updates the UI.
      */
     @FXML
     public void handleUserInput() {
-        String input = userInput.getText();
-        if (input.isEmpty()) {
-            return; // Do nothing if input is empty
-        }
-        if (input.trim().equals("bye")) {
-            exitProgram();
-        }
+        String input = userInput.getText().trim();
+        if (input.isEmpty()) return;
+
+        if (input.equals("bye")) exitProgram();
+
         String response = jessica.getResponse(input);
         System.out.println(response);
+
         handleInputPopUp(input);
+
         PauseTransition delay = new PauseTransition(Duration.millis(300));
         delay.setOnFinished(event -> handleResponsePopUp(response));
         delay.play();
+
         userInput.clear();
     }
 
+    /**
+     * Displays user input in the chat.
+     */
     public void handleInputPopUp(String input) {
         DialogBox userDialog = DialogBox.getUserDialog(input, userImage);
-        Animation.applyFadeAndSlide(userDialog); // Apply animation
+        Animation.applyFadeAndSlide(userDialog);
         dialogContainer.getChildren().add(userDialog);
     }
 
+    /**
+     * Displays chatbot response in the chat.
+     */
     public void handleResponsePopUp(String response) {
         DialogBox dukeDialog = DialogBox.getJessicaDialog(response, jessicaImage);
-        Animation.applyFadeAndSlide(dukeDialog); // Apply animation
+        Animation.applyFadeAndSlide(dukeDialog);
         dialogContainer.getChildren().add(dukeDialog);
     }
 
+    /**
+     * Displays chatbot greeting message.
+     */
     public void chatbotHello() {
-        String input = Help.chatbotHello();
-        DialogBox dukeDialog = DialogBox.getChatbotHelloDialog(input, jessicaImage);
-        Animation.applyFadeAndSlide(dukeDialog); // Apply animation
+        String greeting = Help.chatbotHello();
+        DialogBox dukeDialog = DialogBox.getChatbotHelloDialog(greeting, jessicaImage);
+        Animation.applyFadeAndSlide(dukeDialog);
         dialogContainer.getChildren().add(dukeDialog);
     }
 
+    /**
+     * Exits the program with a delay.
+     */
     public void exitProgram() {
         wait(300);
-        // code to exit the program
         Platform.exit();
     }
 
+    /**
+     * Delays execution for a specified time.
+     * @param millisecond Delay duration in milliseconds
+     */
     public void wait(int millisecond) {
         try {
             TimeUnit.MILLISECONDS.sleep(millisecond);
@@ -134,4 +154,24 @@ public class MainWindow extends AnchorPane {
         }
     }
 
+    /**
+     * Scrolls smoothly to the bottom of the chat.
+     */
+    private void smoothScrollToBottom() {
+        Timeline timeline = new Timeline(
+                new KeyFrame(Duration.millis(300),
+                        new KeyValue(scrollPane.vvalueProperty(), 1.0, Interpolator.EASE_OUT))
+        );
+        timeline.play();
+    }
+
+    /**
+     * Handles mouse scrolling with adjusted sensitivity.
+     * @param deltaY Vertical scroll amount
+     */
+    private void smoothMouseScroll(double deltaY) {
+        double scrollAmount = SCROLL_SENSITIVITY * deltaY / scrollPane.getHeight();
+        double newVValue = Math.max(0, Math.min(1, scrollPane.getVvalue() - scrollAmount));
+        scrollPane.setVvalue(newVValue);
+    }
 }

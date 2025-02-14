@@ -20,7 +20,7 @@ public class Jessica {
     /**
      * The list of tasks used to store task information in memory.
      */
-    private static final List<Task> list = new ArrayList<>();
+    private static final List<Task> tasksList = new ArrayList<>();
     private final StorageHandler storageHandler;
     private final LogicHandler logicHandler;
 
@@ -47,11 +47,11 @@ public class Jessica {
 
         // Initialization
         this.storageHandler = new StorageHandler(storagePath);
-        this.logicHandler = new LogicHandler(storageHandler, list);
+        this.logicHandler = new LogicHandler(storageHandler, tasksList);
 
         // Load data from hard disk to list
         try {
-            storageHandler.loadDiskToMem(list);
+            storageHandler.loadDiskToMem(tasksList);
         } catch (JessicaException e) {
             String s1 = "Error: " + e.getMessage();
             String s2 = "The storage file has been corrupted.";
@@ -93,7 +93,7 @@ public class Jessica {
 
             // Save tasks to storage
             try {
-                storageHandler.storeMemToDisk(list);
+                storageHandler.storeMemToDisk(tasksList);
             } catch (IOException e) {
                 System.out.println(e.getMessage());
                 output = "Unable to save to storage.";
@@ -136,6 +136,7 @@ public class Jessica {
             throw new IllegalArgumentException("Invalid command: " + tagStr);
         }
     }
+
 }
 
 
