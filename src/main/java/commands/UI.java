@@ -13,7 +13,7 @@ public class UI {
     public static String getArray(String[] items) {
         StringBuilder result = new StringBuilder();
         for (String item : items) {
-            String temp = "  " + item + "\n";
+            String temp = " " + item + "\n";
             result.append(temp);
         }
         return result.toString();

@@ -1,3 +1,4 @@
+/* Background animation */
 .root {
     -fx-background-color: linear-gradient(to bottom right, #FFD6C3, #FFBFA5); /* Brighter soft gradient */
 }
@@ -7,6 +8,11 @@
     -fx-border-color: transparent;
 }
 
+.viewport {
+    -fx-background-color: transparent;
+}
+
+/* Button animation */
 .button {
     -fx-font-family: ".SF NS Text", "San Francisco", "Helvetica Neue", "Arial", sans-serif; /* Apple's system font */
     -fx-font-size: 18px; /* Set font size */
@@ -25,11 +31,7 @@
     -fx-font-size: 20px;
 }
 
-
-.viewport {
-    -fx-background-color: transparent;
-}
-
+/* Scrollbar animation */
 .scroll-bar {
     -fx-font-size: 10px;  /* Change width of scroll bar. */
     -fx-background-color: #DFD3C3;
@@ -50,7 +52,7 @@
 
 
 
-/* Default placeholder style */
+/* text field animation */
 .text-field {
     -fx-font-family: ".SF NS Text", "San Francisco", "Helvetica Neue", "Arial", sans-serif; /* Apple's system font */
     -fx-font-size: 15px; /* Set font size */
@@ -71,35 +73,3 @@
 }
 
 
-.header-bar {
-    -fx-background-color: linear-gradient(to right, #FFD6C3, #FFBFA5, #FFE5D9); /* Soft pastel gradient */
-    -fx-padding: 12px; /* Padding around content */
-    -fx-border-radius: 12px 12px 0 0; /* Rounded top corners */
-    -fx-background-radius: 12px 12px 0 0;
-    -fx-spacing: 10px; /* Space between elements */
-    -fx-alignment: center-right; /* Align buttons to the right */
-    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.15), 8, 0, 0, 2); /* Subtle shadow */
-}
-
-.header-title {
-    -fx-font-size: 20px;
-    -fx-font-weight: bold;
-    -fx-text-fill: #5A4A42; /* Soft brown text */
-    -fx-font-family: ".SF NS Text", "San Francisco", "Helvetica Neue", "Arial", sans-serif;
-}
-
-.header-button {
-    -fx-background-color: transparent;
-    -fx-text-fill: #5A4A42; /* Soft brown text */
-    -fx-font-size: 14px;
-    -fx-border-radius: 8px;
-    -fx-padding: 5px;
-}
-
-.header-button:hover {
-    -fx-background-color: rgba(255, 182, 193, 0.3); /* Soft pastel pink hover */
-}
-
-.header-button:pressed {
-    -fx-background-color: #FFC3A0; /* Soft peach click effect */
-}

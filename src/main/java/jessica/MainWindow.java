@@ -14,6 +14,7 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.util.Duration;
+import org.w3c.dom.Text;
 
 import java.util.concurrent.TimeUnit;
 
@@ -34,16 +35,18 @@ public class MainWindow extends AnchorPane {
     private Jessica jessica;
 
     private final Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
-    private final Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
+    private final Image jessicaImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
 
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
         sendButton.disableProperty().bind(userInput.textProperty().isEmpty());
 
+        chatbotHello();
+
         // Set placeholder text initially and bind it dynamically
         userInput.setPromptText("Type something or try help");  // Ensure it appears at startup
-        userInput.promptTextProperty().bind(animateEmptyInput());
+        userInput.promptTextProperty().bind(Animation.animateEmptyInput(userInput));
 
         // Ensure CSS animation applies when empty
         if (userInput.getText().isEmpty()) {
@@ -71,7 +74,7 @@ public class MainWindow extends AnchorPane {
         });
     }
 
-    /** Injects the Duke instance */
+    /** Injects the Jessica instance */
     public void setJessica(Jessica d) {
         jessica = d;
     }
@@ -81,7 +84,7 @@ public class MainWindow extends AnchorPane {
      * the dialog container. Clears the user input after processing.
      */
     @FXML
-    private void handleUserInput() {
+    public void handleUserInput() {
         String input = userInput.getText();
         if (input.isEmpty()) {
             return; // Do nothing if input is empty
@@ -98,41 +101,32 @@ public class MainWindow extends AnchorPane {
         userInput.clear();
     }
 
-    private void handleInputPopUp(String input) {
+    public void handleInputPopUp(String input) {
         DialogBox userDialog = DialogBox.getUserDialog(input, userImage);
-        applyFadeAndSlide(userDialog); // Apply animation
+        Animation.applyFadeAndSlide(userDialog); // Apply animation
         dialogContainer.getChildren().add(userDialog);
     }
 
-    private void handleResponsePopUp(String response) {
-        DialogBox dukeDialog = DialogBox.getDukeDialog(response, dukeImage);
-        applyFadeAndSlide(dukeDialog); // Apply animation
+    public void handleResponsePopUp(String response) {
+        DialogBox dukeDialog = DialogBox.getJessicaDialog(response, jessicaImage);
+        Animation.applyFadeAndSlide(dukeDialog); // Apply animation
         dialogContainer.getChildren().add(dukeDialog);
     }
 
-    private void applyFadeAndSlide(DialogBox dialog) {
-        // Fade transition (makes it appear smoothly)
-        FadeTransition fadeIn = new FadeTransition(Duration.millis(500), dialog);
-        fadeIn.setFromValue(0);
-        fadeIn.setToValue(1);
-
-        // Slide transition (makes it move up slightly)
-        TranslateTransition slideUp = new TranslateTransition(Duration.millis(500), dialog);
-        slideUp.setFromY(30); // Start 30 pixels lower
-        slideUp.setToY(0); // Move to normal position
-
-        // Play animations together
-        fadeIn.play();
-        slideUp.play();
+    public void chatbotHello() {
+        String input = Help.chatbotHello();
+        DialogBox dukeDialog = DialogBox.getChatbotHelloDialog(input, jessicaImage);
+        Animation.applyFadeAndSlide(dukeDialog); // Apply animation
+        dialogContainer.getChildren().add(dukeDialog);
     }
 
-    private void exitProgram() {
+    public void exitProgram() {
         wait(300);
         // code to exit the program
         Platform.exit();
     }
 
-    private void wait(int millisecond) {
+    public void wait(int millisecond) {
         try {
             TimeUnit.MILLISECONDS.sleep(millisecond);
         } catch (InterruptedException e) {
@@ -140,9 +134,4 @@ public class MainWindow extends AnchorPane {
         }
     }
 
-    private StringBinding animateEmptyInput() {
-        return Bindings.when(userInput.textProperty().isEmpty())
-                .then("Type something or try help...") // Show placeholder when empty
-                .otherwise(""); // Remove placeholder when typing
-    }
 }

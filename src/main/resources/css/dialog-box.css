@@ -3,9 +3,9 @@
     -fx-border-color: #FFBFA5; /* Soft pastel border */
     -fx-background-radius: 1em 1em 1em 0;
     -fx-border-radius: 1em 1em 1em 0;
-    -fx-font-family: ".SF NS Text", "San Francisco", "Helvetica Neue", "Arial", sans-serif; /* Apple's system font */
-    -fx-font-size: 15px; /* Set font size */
 }
+
+
 
 /* Main Label with Pastel Theme */
 .label {
@@ -34,3 +34,10 @@
     -fx-rotate: 0;
 }
 
+.hello-label {
+    /* Softer gold gradient */
+    -fx-background-color: linear-gradient(to bottom right, #F4A88B, #FFC1C1); /* Stronger pastel tones */
+
+    /* Vintage purple border */
+    -fx-border-color: #7D5BA6; /* Muted royal purple */
+}
