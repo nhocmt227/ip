@@ -12,7 +12,8 @@ public class Help {
     public static final String MARK_USAGE = "> mark [task number]";
     public static final String UNMARK_USAGE = "> unmark [task number]";
     public static final String FIND_USAGE = "> find [keyword]";
-    public static final String BYE_USAGE = "> bye";
+    public static final String CLEAR_USAGE = "> clear: clear all content";
+    public static final String BYE_USAGE = "> bye: close chatbot";
 
 
     public static String help() {
@@ -26,6 +27,7 @@ public class Help {
                 MARK_USAGE,
                 UNMARK_USAGE,
                 FIND_USAGE,
+                CLEAR_USAGE,
                 BYE_USAGE
         };
         return UI.getPrettyArray(commands);

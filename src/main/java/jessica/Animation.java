@@ -5,7 +5,6 @@ import javafx.animation.TranslateTransition;
 import javafx.beans.binding.Bindings;
 import javafx.beans.binding.StringBinding;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.VBox;
 import javafx.util.Duration;
 
 public class Animation {

@@ -246,4 +246,8 @@ public class LogicHandler {
     public String handleHelp() {
         return Help.help();
     }
+
+    public String handleHello() {
+        return Help.chatbotHello();
+    }
 }

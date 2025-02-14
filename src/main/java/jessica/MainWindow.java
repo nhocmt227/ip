@@ -18,8 +18,6 @@ import java.util.concurrent.TimeUnit;
  */
 public class MainWindow extends AnchorPane {
 
-    public static final double SCROLL_SENSITIVITY = 0.4;
-
     @FXML
     private ScrollPane scrollPane;
     @FXML
@@ -45,11 +43,6 @@ public class MainWindow extends AnchorPane {
                 Platform.runLater(this::smoothScrollToBottom)
         );
 
-        // Custom smooth mouse scrolling
-        scrollPane.addEventFilter(javafx.scene.input.ScrollEvent.SCROLL, event -> {
-            smoothMouseScroll(event.getDeltaY());
-            event.consume();
-        });
 
         chatbotHello();
 
@@ -92,7 +85,16 @@ public class MainWindow extends AnchorPane {
         String input = userInput.getText().trim();
         if (input.isEmpty()) return;
 
-        if (input.equals("bye")) exitProgram();
+        if (input.trim().equals("clear")) {
+            clearContent();
+            return;
+        }
+
+        if (input.equals("bye")) {
+            exitProgram();
+        }
+
+
 
         String response = jessica.getResponse(input);
         System.out.println(response);
@@ -165,13 +167,20 @@ public class MainWindow extends AnchorPane {
         timeline.play();
     }
 
-    /**
-     * Handles mouse scrolling with adjusted sensitivity.
-     * @param deltaY Vertical scroll amount
-     */
-    private void smoothMouseScroll(double deltaY) {
-        double scrollAmount = SCROLL_SENSITIVITY * deltaY / scrollPane.getHeight();
-        double newVValue = Math.max(0, Math.min(1, scrollPane.getVvalue() - scrollAmount));
-        scrollPane.setVvalue(newVValue);
+    private void clearContent() {
+        // Create fade-out animation
+        FadeTransition fadeOut = new FadeTransition(Duration.millis(300), dialogContainer);
+        fadeOut.setFromValue(1.0);
+        fadeOut.setToValue(0.0);
+
+        // Once faded out, clear content and fade back in
+        fadeOut.setOnFinished(event -> {
+            dialogContainer.getChildren().clear();
+            dialogContainer.setOpacity(1.0); // Reset opacity
+        });
+
+        fadeOut.play();
+        userInput.clear();
     }
+
 }
