@@ -1,30 +1,31 @@
-# jessica.Jessica User Guide
+# Jessica Chatbot Project 🌟
+Welcome to Jessica, an interactive chatbot application designed to manage tasks efficiently. This project supports various task-related commands, including adding, marking, deleting, and finding tasks. Below are instructions and details of the implementation.
 
-// Update the title above to match the actual product name
+## Features of the Project 🛠️
+- **Task Management:** Add, delete, and modify tasks in real-time.
+- **File Storage:** Save and load tasks from a file on disk.
+- **Command Recognition:** Recognizes multiple task types (e.g., todo, deadline, event).
 
-// Product screenshot goes here
+## How to Run the Project 🚀
+1. [Download](https://github.com/nhocmt227/ip/releases/download/A-BetterGui/jessica.jar) the latest release in GitHub
+2. Open the terminal and run the project:
+   `java -jar jessica.jar`, or click the jar file to run the project.
 
-// Product intro goes here
+## Supported Commands 📋
+Here’s a list of commands Jessica recognizes:
+- `list`: Display all tasks.
+- `todo`, `deadline`, `event`: Add different types of tasks.
+- `delete`: delete a task.
+- `mark`, `unmark`: mark or unmark the task as done.
+- `find`: find a task.
+- `bye`: exit the chatbot.
 
-## Adding deadlines
+## Development Tasks ✅
+- [x] Implement task storage functionalities.
+- [x] Add command parsing logic.
+- [x] Include Unit Tests and System Tests for error handling.
+- [ ] Implement additional user commands.
 
-// Describe the action and its outcome.
+> **Note: The project currently supports simple text-based task commands. Future enhancements may include GUI integration and additional features.**
 
-// Give examples of usage
-
-Example: `keyword (optional arguments)`
-
-// A description of the expected outcome goes here
-
-```
-expected output
-```
-
-## Feature ABC
-
-// Feature details
-
-
-## Feature XYZ
-
-// Feature details
+Feel free to explore the code, submit PRs, and contribute to the project! 😊
