@@ -38,3 +38,4 @@ public class Help {
                 + "\n💡 Tip: Type 'help' anytime to see the available commands!";
     }
 }
+
