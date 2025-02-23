@@ -6,6 +6,8 @@ Welcome to Jessica, an interactive chatbot application designed to manage tasks 
 - **File Storage:** Save and load tasks from a file on disk.
 - **Command Recognition:** Recognizes multiple task types (e.g., todo, deadline, event).
 
+<img src="docs/Ui.png" alt="Image of the app">
+
 ## How to Run the Project 🚀
 1. [Download](https://github.com/nhocmt227/ip/releases/download/A-BetterGui/jessica.jar) the latest release in GitHub
 2. Open the terminal and run the project:
