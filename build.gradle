@@ -1,3 +1,5 @@
+
+
 plugins {
     id 'java'
     id 'application'
@@ -54,4 +56,14 @@ shadowJar {
 
 run{
     standardInput = System.in
+}
+
+java {
+    toolchain {
+        languageVersion.set(JavaLanguageVersion.of(17))
+    }
+}
+
+tasks.withType(JavaCompile).configureEach {
+    options.release.set(17)
 }

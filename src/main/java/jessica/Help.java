@@ -34,8 +34,8 @@ public class Help {
     }
 
     public static String chatbotHello() {
-        return "👋 Hello! I'm Jessica, your personal task manager.\n"
-                + "\n💡 Tip: Type 'help' anytime to see the available commands!";
+        return "Hello! I'm Jessica, your personal task manager.\n"
+                +"\nTip: Type 'help' anytime to see the available commands!";
     }
 }
 
