@@ -9,8 +9,9 @@ Welcome to Jessica, an interactive chatbot application designed to manage tasks 
 <img src="docs/Ui.png" alt="Image of the app">
 
 ## How to Run the Project 🚀
-1. [Download](https://github.com/nhocmt227/ip/releases/download/A-BetterGui/jessica.jar) the latest release in GitHub
-2. Open the terminal and run the project:
+1. Ensure that Java version 17 or above is installed in your device.
+2. [Download](https://github.com/nhocmt227/ip/releases/download/v3/jessica.jar) the latest release in GitHub
+3. Open the terminal and run the project:
    `java -jar jessica.jar`, or click the jar file to run the project.
 
 ## Supported Commands 📋
