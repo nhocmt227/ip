@@ -6,7 +6,8 @@ Welcome to Jessica, an interactive chatbot application designed to manage tasks 
 - **File Storage:** Save and load tasks from a file on disk.
 - **Command Recognition:** Recognizes multiple task types (e.g., todo, deadline, event).
 
-<img src="docs/Ui.png" alt="Image of the app">
+![image](https://github.com/user-attachments/assets/1b704773-a75c-49bc-946b-ba262afb3225)
+
 
 ## How to Run the Project 🚀
 1. Ensure that Java version 17 or above is installed in your device.
